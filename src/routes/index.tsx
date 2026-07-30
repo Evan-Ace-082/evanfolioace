@@ -538,8 +538,13 @@ function Projects() {
   );
 }
 
+const EMAILJS_SERVICE_ID = "service_1094ace";
+const EMAILJS_TEMPLATE_ID = "template_udffqxc";
+const EMAILJS_PUBLIC_KEY = "YYNSAJNFKHoOGplmc";
+
 function Contact() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
   const contacts = [
     { icon: "✉️", label: "Email", value: "nabilhasanevan2005@gmail.com", href: "mailto:nabilhasanevan2005@gmail.com" },
     { icon: "📞", label: "Phone", value: "+880 1641-976902", href: "tel:+8801641976902" },
