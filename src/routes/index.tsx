@@ -599,10 +599,11 @@ function Contact() {
                    className="mt-4 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary" />
             <textarea required maxLength={1000} name="message" placeholder="Your message..." rows={5}
                       className="mt-4 w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary" />
-            <button type="submit"
-                    className="mt-5 group relative w-full overflow-hidden rounded-xl btn-glow btn-glow-hover px-6 py-3 text-sm font-semibold">
-              {sent ? "✓ Message ready — thanks!" : "Send Message"}
+            <button type="submit" disabled={status === "sending"}
+                    className="mt-5 group relative w-full overflow-hidden rounded-xl btn-glow btn-glow-hover px-6 py-3 text-sm font-semibold disabled:opacity-70">
+              {status === "sending" ? "Sending…" : status === "sent" ? "✓ Message sent — thanks!" : status === "error" ? "✕ Failed — try again" : "Send Message"}
             </button>
+
           </form>
         </Reveal>
       </div>
