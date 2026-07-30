@@ -538,8 +538,13 @@ function Projects() {
   );
 }
 
+const EMAILJS_SERVICE_ID = "service_1094ace";
+const EMAILJS_TEMPLATE_ID = "template_udffqxc";
+const EMAILJS_PUBLIC_KEY = "YYNSAJNFKHoOGplmc";
+
 function Contact() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
   const contacts = [
     { icon: "✉️", label: "Email", value: "nabilhasanevan2005@gmail.com", href: "mailto:nabilhasanevan2005@gmail.com" },
     { icon: "📞", label: "Phone", value: "+880 1641-976902", href: "tel:+8801641976902" },
@@ -565,7 +570,23 @@ function Contact() {
         </div>
         <Reveal delay={150}>
           <form
-            onSubmit={(e) => { e.preventDefault(); setSent(true); setTimeout(() => setSent(false), 3000); (e.target as HTMLFormElement).reset(); }}
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              setStatus("sending");
+              try {
+                const emailjs = (await import("@emailjs/browser")).default;
+                await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, {
+                  publicKey: EMAILJS_PUBLIC_KEY,
+                });
+                setStatus("sent");
+                form.reset();
+              } catch {
+                setStatus("error");
+              }
+              setTimeout(() => setStatus("idle"), 4000);
+            }}
+
             className="glass-strong rounded-3xl p-6 sm:p-8"
           >
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -578,10 +599,11 @@ function Contact() {
                    className="mt-4 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary" />
             <textarea required maxLength={1000} name="message" placeholder="Your message..." rows={5}
                       className="mt-4 w-full resize-none rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm outline-none transition focus:border-primary" />
-            <button type="submit"
-                    className="mt-5 group relative w-full overflow-hidden rounded-xl btn-glow btn-glow-hover px-6 py-3 text-sm font-semibold">
-              {sent ? "✓ Message ready — thanks!" : "Send Message"}
+            <button type="submit" disabled={status === "sending"}
+                    className="mt-5 group relative w-full overflow-hidden rounded-xl btn-glow btn-glow-hover px-6 py-3 text-sm font-semibold disabled:opacity-70">
+              {status === "sending" ? "Sending…" : status === "sent" ? "✓ Message sent — thanks!" : status === "error" ? "✕ Failed — try again" : "Send Message"}
             </button>
+
           </form>
         </Reveal>
       </div>
