@@ -570,7 +570,23 @@ function Contact() {
         </div>
         <Reveal delay={150}>
           <form
-            onSubmit={(e) => { e.preventDefault(); setSent(true); setTimeout(() => setSent(false), 3000); (e.target as HTMLFormElement).reset(); }}
+            onSubmit={async (e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              setStatus("sending");
+              try {
+                const emailjs = (await import("@emailjs/browser")).default;
+                await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, {
+                  publicKey: EMAILJS_PUBLIC_KEY,
+                });
+                setStatus("sent");
+                form.reset();
+              } catch {
+                setStatus("error");
+              }
+              setTimeout(() => setStatus("idle"), 4000);
+            }}
+
             className="glass-strong rounded-3xl p-6 sm:p-8"
           >
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
