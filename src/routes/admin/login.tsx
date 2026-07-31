@@ -26,6 +26,13 @@ const inputCls =
 
 function LoginPage() {
   const navigate = useNavigate();
+  const { next } = Route.useSearch();
+  // Only same-origin relative paths are allowed as a post-login destination.
+  const safeNext = next && next.startsWith("/") && !next.startsWith("//") ? next : null;
+  const goAfterAuth = () => {
+    if (safeNext) window.location.href = safeNext;
+    else navigate({ to: "/admin", replace: true });
+  };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(true);
@@ -35,14 +42,18 @@ function LoginPage() {
   const [mode, setMode] = useState<"login" | "forgot">("login");
   const [notice, setNotice] = useState<string | null>(null);
 
-  // Already signed in → straight to the dashboard.
+  // Already signed in → straight to the dashboard (or back to the pending consent screen).
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/admin", replace: true });
+      if (data.user) {
+        if (safeNext) window.location.href = safeNext;
+        else navigate({ to: "/admin", replace: true });
+      }
     });
     const saved = localStorage.getItem("admin_remembered_email");
     if (saved) setEmail(saved);
-  }, [navigate]);
+  }, [navigate, safeNext]);
+
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
