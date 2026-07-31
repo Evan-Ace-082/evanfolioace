@@ -8,7 +8,7 @@ export const Route = createFileRoute("/admin/")({
   ssr: false,
   beforeLoad: async () => {
     const { data, error } = await supabase.auth.getUser();
-    if (error || !data.user) throw redirect({ to: "/admin/login" });
+    if (error || !data.user) throw redirect({ to: "/admin/login", search: {} });
     return { user: data.user };
   },
   head: () => ({
@@ -51,7 +51,7 @@ function AdminHome() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/admin/login", replace: true });
+    navigate({ to: "/admin/login", search: {}, replace: true });
   }
 
   return (
