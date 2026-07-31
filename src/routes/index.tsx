@@ -644,7 +644,10 @@ function Footer() {
       </div>
       <div className="relative mx-auto mt-10 max-w-6xl border-t border-white/5 px-6 pt-6 text-center text-xs text-white/40">
         © 2026 Nabil Hasan Evan. Crafted with passion in Dhaka.
+        <span className="mx-2 text-white/20">·</span>
+        <a href="/admin/login" className="hover:text-primary">Admin</a>
       </div>
+
       <a href="#home"
          className="fixed bottom-6 right-6 z-40 grid h-12 w-12 place-items-center rounded-full btn-glow btn-glow-hover">
         ↑
