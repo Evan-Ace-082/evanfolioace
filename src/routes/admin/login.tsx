@@ -75,7 +75,7 @@ function LoginPage() {
     }
     if (remember) localStorage.setItem("admin_remembered_email", email.trim());
     else localStorage.removeItem("admin_remembered_email");
-    navigate({ to: "/admin", replace: true });
+    goAfterAuth();
   }
 
   async function handleForgot(e: React.FormEvent) {
