@@ -18,6 +18,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AdminPanelRouteRouteImport } from './routes/admin/_panel/route'
 import { Route as AdminPanelProfileRouteImport } from './routes/admin/_panel/profile'
+import { Route as AdminPanelEducationRouteImport } from './routes/admin/_panel/education'
 import { Route as AdminPanelAboutRouteImport } from './routes/admin/_panel/about'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -69,6 +70,11 @@ const AdminPanelProfileRoute = AdminPanelProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AdminPanelRouteRoute,
 } as any)
+const AdminPanelEducationRoute = AdminPanelEducationRouteImport.update({
+  id: '/education',
+  path: '/education',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
 const AdminPanelAboutRoute = AdminPanelAboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -98,6 +104,7 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/about': typeof AdminPanelAboutRoute
+  '/admin/education': typeof AdminPanelEducationRoute
   '/admin/profile': typeof AdminPanelProfileRoute
 }
 export interface FileRoutesByTo {
@@ -111,6 +118,7 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/about': typeof AdminPanelAboutRoute
+  '/admin/education': typeof AdminPanelEducationRoute
   '/admin/profile': typeof AdminPanelProfileRoute
 }
 export interface FileRoutesById {
@@ -126,6 +134,7 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/_panel/about': typeof AdminPanelAboutRoute
+  '/admin/_panel/education': typeof AdminPanelEducationRoute
   '/admin/_panel/profile': typeof AdminPanelProfileRoute
 }
 export interface FileRouteTypes {
@@ -142,6 +151,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/about'
+    | '/admin/education'
     | '/admin/profile'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/about'
+    | '/admin/education'
     | '/admin/profile'
   id:
     | '__root__'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/_panel/about'
+    | '/admin/_panel/education'
     | '/admin/_panel/profile'
   fileRoutesById: FileRoutesById
 }
@@ -250,6 +262,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelProfileRouteImport
       parentRoute: typeof AdminPanelRouteRoute
     }
+    '/admin/_panel/education': {
+      id: '/admin/_panel/education'
+      path: '/education'
+      fullPath: '/admin/education'
+      preLoaderRoute: typeof AdminPanelEducationRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
     '/admin/_panel/about': {
       id: '/admin/_panel/about'
       path: '/about'
@@ -276,11 +295,13 @@ declare module '@tanstack/react-router' {
 
 interface AdminPanelRouteRouteChildren {
   AdminPanelAboutRoute: typeof AdminPanelAboutRoute
+  AdminPanelEducationRoute: typeof AdminPanelEducationRoute
   AdminPanelProfileRoute: typeof AdminPanelProfileRoute
 }
 
 const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
   AdminPanelAboutRoute: AdminPanelAboutRoute,
+  AdminPanelEducationRoute: AdminPanelEducationRoute,
   AdminPanelProfileRoute: AdminPanelProfileRoute,
 }
 
