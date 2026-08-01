@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import profileImg from "@/assets/profile.png";
+import { supabase } from "@/integrations/supabase/client";
+import { toArray, useCollection, useMediaUrl, useSingleton, type Row } from "@/lib/cms";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
