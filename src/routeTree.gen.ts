@@ -17,6 +17,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AdminPanelRouteRouteImport } from './routes/admin/_panel/route'
+import { Route as AdminPanelSkillsRouteImport } from './routes/admin/_panel/skills'
 import { Route as AdminPanelProjectsRouteImport } from './routes/admin/_panel/projects'
 import { Route as AdminPanelProfileRouteImport } from './routes/admin/_panel/profile'
 import { Route as AdminPanelExperienceRouteImport } from './routes/admin/_panel/experience'
@@ -66,6 +67,11 @@ const AdminPanelRouteRoute = AdminPanelRouteRouteImport.update({
   id: '/admin/_panel',
   path: '/admin',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPanelSkillsRoute = AdminPanelSkillsRouteImport.update({
+  id: '/skills',
+  path: '/skills',
+  getParentRoute: () => AdminPanelRouteRoute,
 } as any)
 const AdminPanelProjectsRoute = AdminPanelProjectsRouteImport.update({
   id: '/projects',
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/profile': typeof AdminPanelProfileRoute
   '/admin/projects': typeof AdminPanelProjectsRoute
+  '/admin/skills': typeof AdminPanelSkillsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -136,6 +143,7 @@ export interface FileRoutesByTo {
   '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/profile': typeof AdminPanelProfileRoute
   '/admin/projects': typeof AdminPanelProjectsRoute
+  '/admin/skills': typeof AdminPanelSkillsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   '/admin/_panel/experience': typeof AdminPanelExperienceRoute
   '/admin/_panel/profile': typeof AdminPanelProfileRoute
   '/admin/_panel/projects': typeof AdminPanelProjectsRoute
+  '/admin/_panel/skills': typeof AdminPanelSkillsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -173,6 +182,7 @@ export interface FileRouteTypes {
     | '/admin/experience'
     | '/admin/profile'
     | '/admin/projects'
+    | '/admin/skills'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/admin/experience'
     | '/admin/profile'
     | '/admin/projects'
+    | '/admin/skills'
   id:
     | '__root__'
     | '/'
@@ -206,6 +217,7 @@ export interface FileRouteTypes {
     | '/admin/_panel/experience'
     | '/admin/_panel/profile'
     | '/admin/_panel/projects'
+    | '/admin/_panel/skills'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -279,6 +291,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/_panel/skills': {
+      id: '/admin/_panel/skills'
+      path: '/skills'
+      fullPath: '/admin/skills'
+      preLoaderRoute: typeof AdminPanelSkillsRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
     '/admin/_panel/projects': {
       id: '/admin/_panel/projects'
       path: '/projects'
@@ -337,6 +356,7 @@ interface AdminPanelRouteRouteChildren {
   AdminPanelExperienceRoute: typeof AdminPanelExperienceRoute
   AdminPanelProfileRoute: typeof AdminPanelProfileRoute
   AdminPanelProjectsRoute: typeof AdminPanelProjectsRoute
+  AdminPanelSkillsRoute: typeof AdminPanelSkillsRoute
 }
 
 const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
@@ -345,6 +365,7 @@ const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
   AdminPanelExperienceRoute: AdminPanelExperienceRoute,
   AdminPanelProfileRoute: AdminPanelProfileRoute,
   AdminPanelProjectsRoute: AdminPanelProjectsRoute,
+  AdminPanelSkillsRoute: AdminPanelSkillsRoute,
 }
 
 const AdminPanelRouteRouteWithChildren = AdminPanelRouteRoute._addFileChildren(
