@@ -18,6 +18,7 @@ import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } fr
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AdminPanelRouteRouteImport } from './routes/admin/_panel/route'
 import { Route as AdminPanelProfileRouteImport } from './routes/admin/_panel/profile'
+import { Route as AdminPanelExperienceRouteImport } from './routes/admin/_panel/experience'
 import { Route as AdminPanelEducationRouteImport } from './routes/admin/_panel/education'
 import { Route as AdminPanelAboutRouteImport } from './routes/admin/_panel/about'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
@@ -70,6 +71,11 @@ const AdminPanelProfileRoute = AdminPanelProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AdminPanelRouteRoute,
 } as any)
+const AdminPanelExperienceRoute = AdminPanelExperienceRouteImport.update({
+  id: '/experience',
+  path: '/experience',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
 const AdminPanelEducationRoute = AdminPanelEducationRouteImport.update({
   id: '/education',
   path: '/education',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/about': typeof AdminPanelAboutRoute
   '/admin/education': typeof AdminPanelEducationRoute
+  '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/profile': typeof AdminPanelProfileRoute
 }
 export interface FileRoutesByTo {
@@ -119,6 +126,7 @@ export interface FileRoutesByTo {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/about': typeof AdminPanelAboutRoute
   '/admin/education': typeof AdminPanelEducationRoute
+  '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/profile': typeof AdminPanelProfileRoute
 }
 export interface FileRoutesById {
@@ -135,6 +143,7 @@ export interface FileRoutesById {
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/_panel/about': typeof AdminPanelAboutRoute
   '/admin/_panel/education': typeof AdminPanelEducationRoute
+  '/admin/_panel/experience': typeof AdminPanelExperienceRoute
   '/admin/_panel/profile': typeof AdminPanelProfileRoute
 }
 export interface FileRouteTypes {
@@ -152,6 +161,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/admin/about'
     | '/admin/education'
+    | '/admin/experience'
     | '/admin/profile'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -166,6 +176,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/admin/about'
     | '/admin/education'
+    | '/admin/experience'
     | '/admin/profile'
   id:
     | '__root__'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '/.mcp/invoke-tool/$tool'
     | '/admin/_panel/about'
     | '/admin/_panel/education'
+    | '/admin/_panel/experience'
     | '/admin/_panel/profile'
   fileRoutesById: FileRoutesById
 }
@@ -262,6 +274,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelProfileRouteImport
       parentRoute: typeof AdminPanelRouteRoute
     }
+    '/admin/_panel/experience': {
+      id: '/admin/_panel/experience'
+      path: '/experience'
+      fullPath: '/admin/experience'
+      preLoaderRoute: typeof AdminPanelExperienceRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
     '/admin/_panel/education': {
       id: '/admin/_panel/education'
       path: '/education'
@@ -296,12 +315,14 @@ declare module '@tanstack/react-router' {
 interface AdminPanelRouteRouteChildren {
   AdminPanelAboutRoute: typeof AdminPanelAboutRoute
   AdminPanelEducationRoute: typeof AdminPanelEducationRoute
+  AdminPanelExperienceRoute: typeof AdminPanelExperienceRoute
   AdminPanelProfileRoute: typeof AdminPanelProfileRoute
 }
 
 const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
   AdminPanelAboutRoute: AdminPanelAboutRoute,
   AdminPanelEducationRoute: AdminPanelEducationRoute,
+  AdminPanelExperienceRoute: AdminPanelExperienceRoute,
   AdminPanelProfileRoute: AdminPanelProfileRoute,
 }
 
