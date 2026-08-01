@@ -17,6 +17,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AdminPanelRouteRouteImport } from './routes/admin/_panel/route'
+import { Route as AdminPanelProjectsRouteImport } from './routes/admin/_panel/projects'
 import { Route as AdminPanelProfileRouteImport } from './routes/admin/_panel/profile'
 import { Route as AdminPanelExperienceRouteImport } from './routes/admin/_panel/experience'
 import { Route as AdminPanelEducationRouteImport } from './routes/admin/_panel/education'
@@ -66,6 +67,11 @@ const AdminPanelRouteRoute = AdminPanelRouteRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPanelProjectsRoute = AdminPanelProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
 const AdminPanelProfileRoute = AdminPanelProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
@@ -113,6 +119,7 @@ export interface FileRoutesByFullPath {
   '/admin/education': typeof AdminPanelEducationRoute
   '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/profile': typeof AdminPanelProfileRoute
+  '/admin/projects': typeof AdminPanelProjectsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -128,6 +135,7 @@ export interface FileRoutesByTo {
   '/admin/education': typeof AdminPanelEducationRoute
   '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/profile': typeof AdminPanelProfileRoute
+  '/admin/projects': typeof AdminPanelProjectsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -145,6 +153,7 @@ export interface FileRoutesById {
   '/admin/_panel/education': typeof AdminPanelEducationRoute
   '/admin/_panel/experience': typeof AdminPanelExperienceRoute
   '/admin/_panel/profile': typeof AdminPanelProfileRoute
+  '/admin/_panel/projects': typeof AdminPanelProjectsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -163,6 +172,7 @@ export interface FileRouteTypes {
     | '/admin/education'
     | '/admin/experience'
     | '/admin/profile'
+    | '/admin/projects'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/admin/education'
     | '/admin/experience'
     | '/admin/profile'
+    | '/admin/projects'
   id:
     | '__root__'
     | '/'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/admin/_panel/education'
     | '/admin/_panel/experience'
     | '/admin/_panel/profile'
+    | '/admin/_panel/projects'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -267,6 +279,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/_panel/projects': {
+      id: '/admin/_panel/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminPanelProjectsRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
     '/admin/_panel/profile': {
       id: '/admin/_panel/profile'
       path: '/profile'
@@ -317,6 +336,7 @@ interface AdminPanelRouteRouteChildren {
   AdminPanelEducationRoute: typeof AdminPanelEducationRoute
   AdminPanelExperienceRoute: typeof AdminPanelExperienceRoute
   AdminPanelProfileRoute: typeof AdminPanelProfileRoute
+  AdminPanelProjectsRoute: typeof AdminPanelProjectsRoute
 }
 
 const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
@@ -324,6 +344,7 @@ const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
   AdminPanelEducationRoute: AdminPanelEducationRoute,
   AdminPanelExperienceRoute: AdminPanelExperienceRoute,
   AdminPanelProfileRoute: AdminPanelProfileRoute,
+  AdminPanelProjectsRoute: AdminPanelProjectsRoute,
 }
 
 const AdminPanelRouteRouteWithChildren = AdminPanelRouteRoute._addFileChildren(
