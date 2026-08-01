@@ -190,8 +190,19 @@ function Navbar() {
   );
 }
 
-function Hero() {
-  const role = useTypewriter(ROLES);
+function Hero({ profile, about }: { profile: Row; about: Row }) {
+  const words = toArray(profile.typing_texts);
+  const role = useTypewriter(words.length ? words : ROLES);
+  const avatar = useMediaUrl(profile.avatar_url);
+  const resume = useMediaUrl(about.resume_url) ?? "/cv.pdf";
+  const name = String(profile.full_name ?? "Nabil Hasan Evan").trim();
+  const parts = name.split(" ");
+  const last = parts.length > 1 ? parts.pop()! : "";
+  const first = parts.join(" ");
+  const email = String(profile.email ?? "nabilhasanevan2005@gmail.com");
+  const phone = String(profile.phone ?? "+8801641976902");
+  const linkedin = String(profile.linkedin ?? "https://linkedin.com/in/nabilhasan-evan-047736368");
+
   return (
     <section id="home" className="relative min-h-screen overflow-hidden pt-32">
       <div className="absolute inset-0 bg-grid opacity-40" />
@@ -203,9 +214,13 @@ function Hero() {
             Available for projects & collaborations
           </div>
           <h1 className="font-display text-5xl font-bold leading-[1.05] sm:text-6xl lg:text-7xl">
-            Nabil Hasan
-            <br />
-            <span className="text-gradient animate-gradient">Evan</span>
+            {first}
+            {last && (
+              <>
+                <br />
+                <span className="text-gradient animate-gradient">{last}</span>
+              </>
+            )}
           </h1>
           <div className="mt-6 flex items-center gap-2 text-lg text-white/80 sm:text-2xl">
             <span className="text-white/50">I'm a</span>
@@ -213,17 +228,18 @@ function Hero() {
             <span className="animate-blink text-primary">|</span>
           </div>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-white/60 sm:text-lg">
-            I'm currently pursuing a Bachelor of Science in Information & Communication Engineering (ICE)
-            under the Department of ICT at Bangladesh University of Professionals (BUP). I enjoy building
-            modern web applications, designing intuitive user interfaces, solving technical problems, and
-            continuously exploring new technologies.
+            {String(
+              profile.long_bio ||
+                profile.short_bio ||
+                "I'm currently pursuing a Bachelor of Science in Information & Communication Engineering (ICE) under the Department of ICT at Bangladesh University of Professionals (BUP).",
+            )}
           </p>
           <div className="mt-8 flex flex-wrap gap-4">
-            <a href="/cv.pdf" download className="group inline-flex items-center gap-2 rounded-xl btn-glow btn-glow-hover px-6 py-3 text-sm font-semibold">
+            <a href={resume} download target="_blank" rel="noopener" className="group inline-flex items-center gap-2 rounded-xl btn-glow btn-glow-hover px-6 py-3 text-sm font-semibold">
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-              Download CV
+              {String(about.resume_button_label ?? "Download CV")}
             </a>
             <a href="#contact" className="group inline-flex items-center gap-2 rounded-xl glass px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
               Contact Me
@@ -231,13 +247,13 @@ function Hero() {
             </a>
           </div>
           <div className="mt-10 flex items-center gap-6 text-white/50">
-            <a href="https://linkedin.com/in/nabilhasan-evan-047736368" target="_blank" rel="noopener" className="transition hover:text-primary">
+            <a href={linkedin} target="_blank" rel="noopener" className="transition hover:text-primary">
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 002 3.5v17A1.5 1.5 0 003.5 22h17a1.5 1.5 0 001.5-1.5v-17A1.5 1.5 0 0020.5 2zM8 19H5V9h3zm-1.5-11.3A1.7 1.7 0 118.2 6a1.7 1.7 0 01-1.7 1.7zM19 19h-3v-5.3c0-3.2-3.5-2.9-3.5 0V19h-3V9h3v1.7c1.4-2.6 6.5-2.8 6.5 2.5z"/></svg>
             </a>
-            <a href="mailto:nabilhasanevan2005@gmail.com" className="transition hover:text-primary">
+            <a href={`mailto:${email}`} className="transition hover:text-primary">
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 8l9 6 9-6M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             </a>
-            <a href="tel:+8801641976902" className="transition hover:text-primary">
+            <a href={`tel:${phone.replace(/\s|-/g, "")}`} className="transition hover:text-primary">
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg>
             </a>
           </div>
@@ -256,7 +272,7 @@ function Hero() {
                style={{ background: "radial-gradient(circle, #3B82F6, transparent 70%)" }} />
           {/* Profile */}
           <div className="relative z-10 h-64 w-64 overflow-hidden rounded-full border-4 border-white/10 glow-blue sm:h-80 sm:w-80">
-            <img src={profileImg} alt="Nabil Hasan Evan" className="h-full w-full object-cover" />
+            <img src={avatar ?? profileImg} alt={name} className="h-full w-full object-cover" />
           </div>
           {/* Floating tech icons */}
           {[
@@ -278,6 +294,7 @@ function Hero() {
     </section>
   );
 }
+
 
 function SectionTitle({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
   return (
