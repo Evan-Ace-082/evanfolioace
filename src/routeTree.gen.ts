@@ -22,8 +22,11 @@ import { Route as AdminPanelSkillsRouteImport } from './routes/admin/_panel/skil
 import { Route as AdminPanelSettingsRouteImport } from './routes/admin/_panel/settings'
 import { Route as AdminPanelServicesRouteImport } from './routes/admin/_panel/services'
 import { Route as AdminPanelSeoRouteImport } from './routes/admin/_panel/seo'
+import { Route as AdminPanelSecurityRouteImport } from './routes/admin/_panel/security'
+import { Route as AdminPanelResumeRouteImport } from './routes/admin/_panel/resume'
 import { Route as AdminPanelProjectsRouteImport } from './routes/admin/_panel/projects'
 import { Route as AdminPanelProfileRouteImport } from './routes/admin/_panel/profile'
+import { Route as AdminPanelMessagesRouteImport } from './routes/admin/_panel/messages'
 import { Route as AdminPanelGalleryRouteImport } from './routes/admin/_panel/gallery'
 import { Route as AdminPanelExperienceRouteImport } from './routes/admin/_panel/experience'
 import { Route as AdminPanelEducationRouteImport } from './routes/admin/_panel/education'
@@ -101,6 +104,16 @@ const AdminPanelSeoRoute = AdminPanelSeoRouteImport.update({
   path: '/seo',
   getParentRoute: () => AdminPanelRouteRoute,
 } as any)
+const AdminPanelSecurityRoute = AdminPanelSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
+const AdminPanelResumeRoute = AdminPanelResumeRouteImport.update({
+  id: '/resume',
+  path: '/resume',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
 const AdminPanelProjectsRoute = AdminPanelProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
@@ -109,6 +122,11 @@ const AdminPanelProjectsRoute = AdminPanelProjectsRouteImport.update({
 const AdminPanelProfileRoute = AdminPanelProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
+const AdminPanelMessagesRoute = AdminPanelMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
   getParentRoute: () => AdminPanelRouteRoute,
 } as any)
 const AdminPanelGalleryRoute = AdminPanelGalleryRouteImport.update({
@@ -176,8 +194,11 @@ export interface FileRoutesByFullPath {
   '/admin/education': typeof AdminPanelEducationRoute
   '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/gallery': typeof AdminPanelGalleryRoute
+  '/admin/messages': typeof AdminPanelMessagesRoute
   '/admin/profile': typeof AdminPanelProfileRoute
   '/admin/projects': typeof AdminPanelProjectsRoute
+  '/admin/resume': typeof AdminPanelResumeRoute
+  '/admin/security': typeof AdminPanelSecurityRoute
   '/admin/seo': typeof AdminPanelSeoRoute
   '/admin/services': typeof AdminPanelServicesRoute
   '/admin/settings': typeof AdminPanelSettingsRoute
@@ -201,8 +222,11 @@ export interface FileRoutesByTo {
   '/admin/education': typeof AdminPanelEducationRoute
   '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/gallery': typeof AdminPanelGalleryRoute
+  '/admin/messages': typeof AdminPanelMessagesRoute
   '/admin/profile': typeof AdminPanelProfileRoute
   '/admin/projects': typeof AdminPanelProjectsRoute
+  '/admin/resume': typeof AdminPanelResumeRoute
+  '/admin/security': typeof AdminPanelSecurityRoute
   '/admin/seo': typeof AdminPanelSeoRoute
   '/admin/services': typeof AdminPanelServicesRoute
   '/admin/settings': typeof AdminPanelSettingsRoute
@@ -228,8 +252,11 @@ export interface FileRoutesById {
   '/admin/_panel/education': typeof AdminPanelEducationRoute
   '/admin/_panel/experience': typeof AdminPanelExperienceRoute
   '/admin/_panel/gallery': typeof AdminPanelGalleryRoute
+  '/admin/_panel/messages': typeof AdminPanelMessagesRoute
   '/admin/_panel/profile': typeof AdminPanelProfileRoute
   '/admin/_panel/projects': typeof AdminPanelProjectsRoute
+  '/admin/_panel/resume': typeof AdminPanelResumeRoute
+  '/admin/_panel/security': typeof AdminPanelSecurityRoute
   '/admin/_panel/seo': typeof AdminPanelSeoRoute
   '/admin/_panel/services': typeof AdminPanelServicesRoute
   '/admin/_panel/settings': typeof AdminPanelSettingsRoute
@@ -256,8 +283,11 @@ export interface FileRouteTypes {
     | '/admin/education'
     | '/admin/experience'
     | '/admin/gallery'
+    | '/admin/messages'
     | '/admin/profile'
     | '/admin/projects'
+    | '/admin/resume'
+    | '/admin/security'
     | '/admin/seo'
     | '/admin/services'
     | '/admin/settings'
@@ -281,8 +311,11 @@ export interface FileRouteTypes {
     | '/admin/education'
     | '/admin/experience'
     | '/admin/gallery'
+    | '/admin/messages'
     | '/admin/profile'
     | '/admin/projects'
+    | '/admin/resume'
+    | '/admin/security'
     | '/admin/seo'
     | '/admin/services'
     | '/admin/settings'
@@ -307,8 +340,11 @@ export interface FileRouteTypes {
     | '/admin/_panel/education'
     | '/admin/_panel/experience'
     | '/admin/_panel/gallery'
+    | '/admin/_panel/messages'
     | '/admin/_panel/profile'
     | '/admin/_panel/projects'
+    | '/admin/_panel/resume'
+    | '/admin/_panel/security'
     | '/admin/_panel/seo'
     | '/admin/_panel/services'
     | '/admin/_panel/settings'
@@ -422,6 +458,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelSeoRouteImport
       parentRoute: typeof AdminPanelRouteRoute
     }
+    '/admin/_panel/security': {
+      id: '/admin/_panel/security'
+      path: '/security'
+      fullPath: '/admin/security'
+      preLoaderRoute: typeof AdminPanelSecurityRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
+    '/admin/_panel/resume': {
+      id: '/admin/_panel/resume'
+      path: '/resume'
+      fullPath: '/admin/resume'
+      preLoaderRoute: typeof AdminPanelResumeRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
     '/admin/_panel/projects': {
       id: '/admin/_panel/projects'
       path: '/projects'
@@ -434,6 +484,13 @@ declare module '@tanstack/react-router' {
       path: '/profile'
       fullPath: '/admin/profile'
       preLoaderRoute: typeof AdminPanelProfileRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
+    '/admin/_panel/messages': {
+      id: '/admin/_panel/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminPanelMessagesRouteImport
       parentRoute: typeof AdminPanelRouteRoute
     }
     '/admin/_panel/gallery': {
@@ -510,8 +567,11 @@ interface AdminPanelRouteRouteChildren {
   AdminPanelEducationRoute: typeof AdminPanelEducationRoute
   AdminPanelExperienceRoute: typeof AdminPanelExperienceRoute
   AdminPanelGalleryRoute: typeof AdminPanelGalleryRoute
+  AdminPanelMessagesRoute: typeof AdminPanelMessagesRoute
   AdminPanelProfileRoute: typeof AdminPanelProfileRoute
   AdminPanelProjectsRoute: typeof AdminPanelProjectsRoute
+  AdminPanelResumeRoute: typeof AdminPanelResumeRoute
+  AdminPanelSecurityRoute: typeof AdminPanelSecurityRoute
   AdminPanelSeoRoute: typeof AdminPanelSeoRoute
   AdminPanelServicesRoute: typeof AdminPanelServicesRoute
   AdminPanelSettingsRoute: typeof AdminPanelSettingsRoute
@@ -527,8 +587,11 @@ const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
   AdminPanelEducationRoute: AdminPanelEducationRoute,
   AdminPanelExperienceRoute: AdminPanelExperienceRoute,
   AdminPanelGalleryRoute: AdminPanelGalleryRoute,
+  AdminPanelMessagesRoute: AdminPanelMessagesRoute,
   AdminPanelProfileRoute: AdminPanelProfileRoute,
   AdminPanelProjectsRoute: AdminPanelProjectsRoute,
+  AdminPanelResumeRoute: AdminPanelResumeRoute,
+  AdminPanelSecurityRoute: AdminPanelSecurityRoute,
   AdminPanelSeoRoute: AdminPanelSeoRoute,
   AdminPanelServicesRoute: AdminPanelServicesRoute,
   AdminPanelSettingsRoute: AdminPanelSettingsRoute,
