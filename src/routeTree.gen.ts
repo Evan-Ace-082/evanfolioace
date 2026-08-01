@@ -17,11 +17,19 @@ import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AdminPanelRouteRouteImport } from './routes/admin/_panel/route'
+import { Route as AdminPanelTestimonialsRouteImport } from './routes/admin/_panel/testimonials'
 import { Route as AdminPanelSkillsRouteImport } from './routes/admin/_panel/skills'
+import { Route as AdminPanelSettingsRouteImport } from './routes/admin/_panel/settings'
+import { Route as AdminPanelServicesRouteImport } from './routes/admin/_panel/services'
+import { Route as AdminPanelSeoRouteImport } from './routes/admin/_panel/seo'
 import { Route as AdminPanelProjectsRouteImport } from './routes/admin/_panel/projects'
 import { Route as AdminPanelProfileRouteImport } from './routes/admin/_panel/profile'
+import { Route as AdminPanelGalleryRouteImport } from './routes/admin/_panel/gallery'
 import { Route as AdminPanelExperienceRouteImport } from './routes/admin/_panel/experience'
 import { Route as AdminPanelEducationRouteImport } from './routes/admin/_panel/education'
+import { Route as AdminPanelCertificatesRouteImport } from './routes/admin/_panel/certificates'
+import { Route as AdminPanelBlogRouteImport } from './routes/admin/_panel/blog'
+import { Route as AdminPanelAchievementsRouteImport } from './routes/admin/_panel/achievements'
 import { Route as AdminPanelAboutRouteImport } from './routes/admin/_panel/about'
 import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
 import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
@@ -68,9 +76,29 @@ const AdminPanelRouteRoute = AdminPanelRouteRouteImport.update({
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPanelTestimonialsRoute = AdminPanelTestimonialsRouteImport.update({
+  id: '/testimonials',
+  path: '/testimonials',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
 const AdminPanelSkillsRoute = AdminPanelSkillsRouteImport.update({
   id: '/skills',
   path: '/skills',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
+const AdminPanelSettingsRoute = AdminPanelSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
+const AdminPanelServicesRoute = AdminPanelServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
+const AdminPanelSeoRoute = AdminPanelSeoRouteImport.update({
+  id: '/seo',
+  path: '/seo',
   getParentRoute: () => AdminPanelRouteRoute,
 } as any)
 const AdminPanelProjectsRoute = AdminPanelProjectsRouteImport.update({
@@ -83,6 +111,11 @@ const AdminPanelProfileRoute = AdminPanelProfileRouteImport.update({
   path: '/profile',
   getParentRoute: () => AdminPanelRouteRoute,
 } as any)
+const AdminPanelGalleryRoute = AdminPanelGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
 const AdminPanelExperienceRoute = AdminPanelExperienceRouteImport.update({
   id: '/experience',
   path: '/experience',
@@ -91,6 +124,21 @@ const AdminPanelExperienceRoute = AdminPanelExperienceRouteImport.update({
 const AdminPanelEducationRoute = AdminPanelEducationRouteImport.update({
   id: '/education',
   path: '/education',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
+const AdminPanelCertificatesRoute = AdminPanelCertificatesRouteImport.update({
+  id: '/certificates',
+  path: '/certificates',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
+const AdminPanelBlogRoute = AdminPanelBlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
+const AdminPanelAchievementsRoute = AdminPanelAchievementsRouteImport.update({
+  id: '/achievements',
+  path: '/achievements',
   getParentRoute: () => AdminPanelRouteRoute,
 } as any)
 const AdminPanelAboutRoute = AdminPanelAboutRouteImport.update({
@@ -122,11 +170,19 @@ export interface FileRoutesByFullPath {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/about': typeof AdminPanelAboutRoute
+  '/admin/achievements': typeof AdminPanelAchievementsRoute
+  '/admin/blog': typeof AdminPanelBlogRoute
+  '/admin/certificates': typeof AdminPanelCertificatesRoute
   '/admin/education': typeof AdminPanelEducationRoute
   '/admin/experience': typeof AdminPanelExperienceRoute
+  '/admin/gallery': typeof AdminPanelGalleryRoute
   '/admin/profile': typeof AdminPanelProfileRoute
   '/admin/projects': typeof AdminPanelProjectsRoute
+  '/admin/seo': typeof AdminPanelSeoRoute
+  '/admin/services': typeof AdminPanelServicesRoute
+  '/admin/settings': typeof AdminPanelSettingsRoute
   '/admin/skills': typeof AdminPanelSkillsRoute
+  '/admin/testimonials': typeof AdminPanelTestimonialsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -139,11 +195,19 @@ export interface FileRoutesByTo {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/about': typeof AdminPanelAboutRoute
+  '/admin/achievements': typeof AdminPanelAchievementsRoute
+  '/admin/blog': typeof AdminPanelBlogRoute
+  '/admin/certificates': typeof AdminPanelCertificatesRoute
   '/admin/education': typeof AdminPanelEducationRoute
   '/admin/experience': typeof AdminPanelExperienceRoute
+  '/admin/gallery': typeof AdminPanelGalleryRoute
   '/admin/profile': typeof AdminPanelProfileRoute
   '/admin/projects': typeof AdminPanelProjectsRoute
+  '/admin/seo': typeof AdminPanelSeoRoute
+  '/admin/services': typeof AdminPanelServicesRoute
+  '/admin/settings': typeof AdminPanelSettingsRoute
   '/admin/skills': typeof AdminPanelSkillsRoute
+  '/admin/testimonials': typeof AdminPanelTestimonialsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -158,11 +222,19 @@ export interface FileRoutesById {
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/_panel/about': typeof AdminPanelAboutRoute
+  '/admin/_panel/achievements': typeof AdminPanelAchievementsRoute
+  '/admin/_panel/blog': typeof AdminPanelBlogRoute
+  '/admin/_panel/certificates': typeof AdminPanelCertificatesRoute
   '/admin/_panel/education': typeof AdminPanelEducationRoute
   '/admin/_panel/experience': typeof AdminPanelExperienceRoute
+  '/admin/_panel/gallery': typeof AdminPanelGalleryRoute
   '/admin/_panel/profile': typeof AdminPanelProfileRoute
   '/admin/_panel/projects': typeof AdminPanelProjectsRoute
+  '/admin/_panel/seo': typeof AdminPanelSeoRoute
+  '/admin/_panel/services': typeof AdminPanelServicesRoute
+  '/admin/_panel/settings': typeof AdminPanelSettingsRoute
   '/admin/_panel/skills': typeof AdminPanelSkillsRoute
+  '/admin/_panel/testimonials': typeof AdminPanelTestimonialsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -178,11 +250,19 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/about'
+    | '/admin/achievements'
+    | '/admin/blog'
+    | '/admin/certificates'
     | '/admin/education'
     | '/admin/experience'
+    | '/admin/gallery'
     | '/admin/profile'
     | '/admin/projects'
+    | '/admin/seo'
+    | '/admin/services'
+    | '/admin/settings'
     | '/admin/skills'
+    | '/admin/testimonials'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -195,11 +275,19 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/about'
+    | '/admin/achievements'
+    | '/admin/blog'
+    | '/admin/certificates'
     | '/admin/education'
     | '/admin/experience'
+    | '/admin/gallery'
     | '/admin/profile'
     | '/admin/projects'
+    | '/admin/seo'
+    | '/admin/services'
+    | '/admin/settings'
     | '/admin/skills'
+    | '/admin/testimonials'
   id:
     | '__root__'
     | '/'
@@ -213,11 +301,19 @@ export interface FileRouteTypes {
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/_panel/about'
+    | '/admin/_panel/achievements'
+    | '/admin/_panel/blog'
+    | '/admin/_panel/certificates'
     | '/admin/_panel/education'
     | '/admin/_panel/experience'
+    | '/admin/_panel/gallery'
     | '/admin/_panel/profile'
     | '/admin/_panel/projects'
+    | '/admin/_panel/seo'
+    | '/admin/_panel/services'
+    | '/admin/_panel/settings'
     | '/admin/_panel/skills'
+    | '/admin/_panel/testimonials'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -291,11 +387,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/_panel/testimonials': {
+      id: '/admin/_panel/testimonials'
+      path: '/testimonials'
+      fullPath: '/admin/testimonials'
+      preLoaderRoute: typeof AdminPanelTestimonialsRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
     '/admin/_panel/skills': {
       id: '/admin/_panel/skills'
       path: '/skills'
       fullPath: '/admin/skills'
       preLoaderRoute: typeof AdminPanelSkillsRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
+    '/admin/_panel/settings': {
+      id: '/admin/_panel/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminPanelSettingsRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
+    '/admin/_panel/services': {
+      id: '/admin/_panel/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AdminPanelServicesRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
+    '/admin/_panel/seo': {
+      id: '/admin/_panel/seo'
+      path: '/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AdminPanelSeoRouteImport
       parentRoute: typeof AdminPanelRouteRoute
     }
     '/admin/_panel/projects': {
@@ -312,6 +436,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelProfileRouteImport
       parentRoute: typeof AdminPanelRouteRoute
     }
+    '/admin/_panel/gallery': {
+      id: '/admin/_panel/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AdminPanelGalleryRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
     '/admin/_panel/experience': {
       id: '/admin/_panel/experience'
       path: '/experience'
@@ -324,6 +455,27 @@ declare module '@tanstack/react-router' {
       path: '/education'
       fullPath: '/admin/education'
       preLoaderRoute: typeof AdminPanelEducationRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
+    '/admin/_panel/certificates': {
+      id: '/admin/_panel/certificates'
+      path: '/certificates'
+      fullPath: '/admin/certificates'
+      preLoaderRoute: typeof AdminPanelCertificatesRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
+    '/admin/_panel/blog': {
+      id: '/admin/_panel/blog'
+      path: '/blog'
+      fullPath: '/admin/blog'
+      preLoaderRoute: typeof AdminPanelBlogRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
+    '/admin/_panel/achievements': {
+      id: '/admin/_panel/achievements'
+      path: '/achievements'
+      fullPath: '/admin/achievements'
+      preLoaderRoute: typeof AdminPanelAchievementsRouteImport
       parentRoute: typeof AdminPanelRouteRoute
     }
     '/admin/_panel/about': {
@@ -352,20 +504,36 @@ declare module '@tanstack/react-router' {
 
 interface AdminPanelRouteRouteChildren {
   AdminPanelAboutRoute: typeof AdminPanelAboutRoute
+  AdminPanelAchievementsRoute: typeof AdminPanelAchievementsRoute
+  AdminPanelBlogRoute: typeof AdminPanelBlogRoute
+  AdminPanelCertificatesRoute: typeof AdminPanelCertificatesRoute
   AdminPanelEducationRoute: typeof AdminPanelEducationRoute
   AdminPanelExperienceRoute: typeof AdminPanelExperienceRoute
+  AdminPanelGalleryRoute: typeof AdminPanelGalleryRoute
   AdminPanelProfileRoute: typeof AdminPanelProfileRoute
   AdminPanelProjectsRoute: typeof AdminPanelProjectsRoute
+  AdminPanelSeoRoute: typeof AdminPanelSeoRoute
+  AdminPanelServicesRoute: typeof AdminPanelServicesRoute
+  AdminPanelSettingsRoute: typeof AdminPanelSettingsRoute
   AdminPanelSkillsRoute: typeof AdminPanelSkillsRoute
+  AdminPanelTestimonialsRoute: typeof AdminPanelTestimonialsRoute
 }
 
 const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
   AdminPanelAboutRoute: AdminPanelAboutRoute,
+  AdminPanelAchievementsRoute: AdminPanelAchievementsRoute,
+  AdminPanelBlogRoute: AdminPanelBlogRoute,
+  AdminPanelCertificatesRoute: AdminPanelCertificatesRoute,
   AdminPanelEducationRoute: AdminPanelEducationRoute,
   AdminPanelExperienceRoute: AdminPanelExperienceRoute,
+  AdminPanelGalleryRoute: AdminPanelGalleryRoute,
   AdminPanelProfileRoute: AdminPanelProfileRoute,
   AdminPanelProjectsRoute: AdminPanelProjectsRoute,
+  AdminPanelSeoRoute: AdminPanelSeoRoute,
+  AdminPanelServicesRoute: AdminPanelServicesRoute,
+  AdminPanelSettingsRoute: AdminPanelSettingsRoute,
   AdminPanelSkillsRoute: AdminPanelSkillsRoute,
+  AdminPanelTestimonialsRoute: AdminPanelTestimonialsRoute,
 }
 
 const AdminPanelRouteRouteWithChildren = AdminPanelRouteRoute._addFileChildren(
