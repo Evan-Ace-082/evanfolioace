@@ -12,11 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as McpRouteImport } from './routes/mcp'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminLoginRouteImport } from './routes/admin/login'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as AdminPanelRouteRouteImport } from './routes/admin/_panel/route'
+import { Route as AdminPanelIndexRouteImport } from './routes/admin/_panel/index'
 import { Route as AdminPanelTestimonialsRouteImport } from './routes/admin/_panel/testimonials'
 import { Route as AdminPanelSkillsRouteImport } from './routes/admin/_panel/skills'
 import { Route as AdminPanelSettingsRouteImport } from './routes/admin/_panel/settings'
@@ -52,11 +52,6 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminLoginRoute = AdminLoginRouteImport.update({
   id: '/admin/login',
   path: '/admin/login',
@@ -78,6 +73,11 @@ const AdminPanelRouteRoute = AdminPanelRouteRouteImport.update({
   id: '/admin/_panel',
   path: '/admin',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPanelIndexRoute = AdminPanelIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminPanelRouteRoute,
 } as any)
 const AdminPanelTestimonialsRoute = AdminPanelTestimonialsRouteImport.update({
   id: '/testimonials',
@@ -184,7 +184,6 @@ export interface FileRoutesByFullPath {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
-  '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/about': typeof AdminPanelAboutRoute
@@ -204,12 +203,12 @@ export interface FileRoutesByFullPath {
   '/admin/settings': typeof AdminPanelSettingsRoute
   '/admin/skills': typeof AdminPanelSkillsRoute
   '/admin/testimonials': typeof AdminPanelTestimonialsRoute
+  '/admin/': typeof AdminPanelIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/mcp': typeof McpRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/admin': typeof AdminIndexRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
@@ -232,6 +231,7 @@ export interface FileRoutesByTo {
   '/admin/settings': typeof AdminPanelSettingsRoute
   '/admin/skills': typeof AdminPanelSkillsRoute
   '/admin/testimonials': typeof AdminPanelTestimonialsRoute
+  '/admin': typeof AdminPanelIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -242,7 +242,6 @@ export interface FileRoutesById {
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/admin/login': typeof AdminLoginRoute
-  '/admin/': typeof AdminIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/admin/_panel/about': typeof AdminPanelAboutRoute
@@ -262,6 +261,7 @@ export interface FileRoutesById {
   '/admin/_panel/settings': typeof AdminPanelSettingsRoute
   '/admin/_panel/skills': typeof AdminPanelSkillsRoute
   '/admin/_panel/testimonials': typeof AdminPanelTestimonialsRoute
+  '/admin/_panel/': typeof AdminPanelIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -273,7 +273,6 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
-    | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/about'
@@ -293,12 +292,12 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/skills'
     | '/admin/testimonials'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/mcp'
     | '/reset-password'
-    | '/admin'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
@@ -321,6 +320,7 @@ export interface FileRouteTypes {
     | '/admin/settings'
     | '/admin/skills'
     | '/admin/testimonials'
+    | '/admin'
   id:
     | '__root__'
     | '/'
@@ -330,7 +330,6 @@ export interface FileRouteTypes {
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
     | '/admin/login'
-    | '/admin/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/admin/_panel/about'
@@ -350,6 +349,7 @@ export interface FileRouteTypes {
     | '/admin/_panel/settings'
     | '/admin/_panel/skills'
     | '/admin/_panel/testimonials'
+    | '/admin/_panel/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -360,7 +360,6 @@ export interface RootRouteChildren {
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   AdminLoginRoute: typeof AdminLoginRoute
-  AdminIndexRoute: typeof AdminIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
 }
@@ -386,13 +385,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin/': {
-      id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/login': {
@@ -422,6 +414,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin'
       preLoaderRoute: typeof AdminPanelRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/admin/_panel/': {
+      id: '/admin/_panel/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminPanelIndexRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
     }
     '/admin/_panel/testimonials': {
       id: '/admin/_panel/testimonials'
@@ -577,6 +576,7 @@ interface AdminPanelRouteRouteChildren {
   AdminPanelSettingsRoute: typeof AdminPanelSettingsRoute
   AdminPanelSkillsRoute: typeof AdminPanelSkillsRoute
   AdminPanelTestimonialsRoute: typeof AdminPanelTestimonialsRoute
+  AdminPanelIndexRoute: typeof AdminPanelIndexRoute
 }
 
 const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
@@ -597,6 +597,7 @@ const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
   AdminPanelSettingsRoute: AdminPanelSettingsRoute,
   AdminPanelSkillsRoute: AdminPanelSkillsRoute,
   AdminPanelTestimonialsRoute: AdminPanelTestimonialsRoute,
+  AdminPanelIndexRoute: AdminPanelIndexRoute,
 }
 
 const AdminPanelRouteRouteWithChildren = AdminPanelRouteRoute._addFileChildren(
@@ -612,10 +613,19 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
   AdminLoginRoute: AdminLoginRoute,
-  AdminIndexRoute: AdminIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
