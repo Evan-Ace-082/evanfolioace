@@ -4,6 +4,10 @@ import profileImg from "@/assets/profile.png";
 import { supabase } from "@/integrations/supabase/client";
 import { toArray, useCollection, useMediaUrl, useSingleton, type Row } from "@/lib/cms";
 
+/* Columns of `profile` that anonymous visitors are allowed to read. */
+const PUBLIC_PROFILE_COLUMNS =
+  "id,avatar_url,cover_url,full_name,title,typing_texts,short_bio,long_bio,career_objective,nationality,location,phone,email,linkedin,github,facebook,instagram,twitter,portfolio_url,created_at,updated_at";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
