@@ -428,7 +428,7 @@ function Skills() {
   const groups = (cats.data ?? []).map((c) => ({
     title: String(c.name),
     items: (skills.data ?? []).filter((s) => s.category_id === c.id),
-  })).filter((g) => g.items.length);
+  }));
   const loose = (skills.data ?? []).filter((s) => !s.category_id);
   if (loose.length) groups.push({ title: "Other", items: loose });
   if (!groups.length) return null;
@@ -447,6 +447,7 @@ function Skills() {
                 <h3 className="font-display text-lg font-bold">{g.title}</h3>
               </div>
               <div className="space-y-4">
+                {g.items.length === 0 && <p className="text-sm text-white/40">Coming soon.</p>}
                 {g.items.map((s) => (
                   <div key={String(s.id)}>
                     <div className="mb-1.5 flex justify-between text-sm">
