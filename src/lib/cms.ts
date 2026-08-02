@@ -79,11 +79,11 @@ export function useCollection(
   });
 }
 
-export function useSingleton(table: string, columns = "*") {
+export function useSingleton(table: string) {
   return useQuery({
-    queryKey: ["cms", table, "singleton", columns],
+    queryKey: ["cms", table, "singleton"],
     queryFn: async (): Promise<Row | null> => {
-      const { data, error } = await db().from(table).select(columns).limit(1).maybeSingle();
+      const { data, error } = await db().from(table).select("*").limit(1).maybeSingle();
       if (error) throw error;
       return (data ?? null) as Row | null;
     },
