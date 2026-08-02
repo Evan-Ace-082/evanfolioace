@@ -837,7 +837,9 @@ function Footer({ profile, settings }: { profile: Row; settings: Row }) {
 }
 
 function Portfolio() {
-  const profile = useSingleton("profile").data ?? {};
+  // Only request the columns that are publicly readable — private fields
+  // (e.g. birthday) are not granted to anonymous visitors.
+  const profile = useSingleton("profile", PUBLIC_PROFILE_COLUMNS).data ?? {};
   const about = useSingleton("about").data ?? {};
   const settings = useSingleton("site_settings").data ?? {};
 
