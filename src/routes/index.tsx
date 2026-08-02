@@ -318,7 +318,7 @@ function About({ profile, about }: { profile: Row; about: Row }) {
   const bio: [string, string][] = [
     ["Name", String(profile.full_name ?? "")],
     ["Position", String(profile.title ?? "")],
-    ["Birthday", String(profile.birthday ?? "")],
+    ["Nationality", String(profile.nationality ?? "")],
     ["Nationality", String(profile.nationality ?? "")],
     ["Location", String(profile.location ?? "")],
     ["Email", String(profile.email ?? "")],
