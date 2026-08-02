@@ -319,7 +319,6 @@ function About({ profile, about }: { profile: Row; about: Row }) {
     ["Name", String(profile.full_name ?? "")],
     ["Position", String(profile.title ?? "")],
     ["Nationality", String(profile.nationality ?? "")],
-    ["Nationality", String(profile.nationality ?? "")],
     ["Location", String(profile.location ?? "")],
     ["Email", String(profile.email ?? "")],
     ["Phone", String(profile.phone ?? "")],
