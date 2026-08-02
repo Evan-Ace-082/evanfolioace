@@ -428,7 +428,7 @@ function Skills() {
   const groups = (cats.data ?? []).map((c) => ({
     title: String(c.name),
     items: (skills.data ?? []).filter((s) => s.category_id === c.id),
-  })).filter((g) => g.items.length);
+  }));
   const loose = (skills.data ?? []).filter((s) => !s.category_id);
   if (loose.length) groups.push({ title: "Other", items: loose });
   if (!groups.length) return null;
