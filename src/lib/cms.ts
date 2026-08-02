@@ -53,8 +53,10 @@ export function useCollection(
   const qc = useQueryClient();
 
   useEffect(() => {
+    // Unique channel name per subscriber — reusing a name across components
+    // throws "cannot add postgres_changes callbacks after subscribe()".
     const channel = supabase
-      .channel(`cms-${table}`)
+      .channel(`cms-${table}-${Math.random().toString(36).slice(2)}`)
       .on("postgres_changes", { event: "*", schema: "public", table }, () => {
         qc.invalidateQueries({ queryKey: ["cms", table] });
       })
@@ -63,6 +65,7 @@ export function useCollection(
       supabase.removeChannel(channel);
     };
   }, [table, qc]);
+
 
   return useQuery({
     queryKey: ["cms", table, orderBy, filter?.join(":") ?? ""],
