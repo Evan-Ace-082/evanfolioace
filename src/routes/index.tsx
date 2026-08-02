@@ -447,6 +447,7 @@ function Skills() {
                 <h3 className="font-display text-lg font-bold">{g.title}</h3>
               </div>
               <div className="space-y-4">
+                {g.items.length === 0 && <p className="text-sm text-white/40">Coming soon.</p>}
                 {g.items.map((s) => (
                   <div key={String(s.id)}>
                     <div className="mb-1.5 flex justify-between text-sm">
