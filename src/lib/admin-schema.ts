@@ -133,7 +133,9 @@ export const certificateFields: Field[] = [
 
 export const achievementFields: Field[] = [
   { key: "title", label: "Title" },
+  { key: "organization", label: "Organization" },
   { key: "date", label: "Date" },
+  { key: "credential_url", label: "Credential Link" },
   { key: "display_order", label: "Display Order", type: "number" },
   { key: "description", label: "Description", type: "textarea", full: true },
   { key: "image_url", label: "Image", type: "image", folder: "achievements", full: true },
@@ -239,4 +241,12 @@ export const messageFields: Field[] = [
     ],
   },
   { key: "message", label: "Message", type: "textarea", full: true },
+];
+
+export const hobbyFields: Field[] = [
+  { key: "title", label: "Hobby" },
+  { key: "icon", label: "Icon (emoji)" },
+  { key: "display_order", label: "Display Order", type: "number" },
+  { key: "description", label: "Description", type: "textarea", full: true },
+  { key: "image_url", label: "Image", type: "image", folder: "hobbies", full: true },
 ];
