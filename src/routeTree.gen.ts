@@ -27,6 +27,7 @@ import { Route as AdminPanelResumeRouteImport } from './routes/admin/_panel/resu
 import { Route as AdminPanelProjectsRouteImport } from './routes/admin/_panel/projects'
 import { Route as AdminPanelProfileRouteImport } from './routes/admin/_panel/profile'
 import { Route as AdminPanelMessagesRouteImport } from './routes/admin/_panel/messages'
+import { Route as AdminPanelHobbiesRouteImport } from './routes/admin/_panel/hobbies'
 import { Route as AdminPanelGalleryRouteImport } from './routes/admin/_panel/gallery'
 import { Route as AdminPanelExperienceRouteImport } from './routes/admin/_panel/experience'
 import { Route as AdminPanelEducationRouteImport } from './routes/admin/_panel/education'
@@ -129,6 +130,11 @@ const AdminPanelMessagesRoute = AdminPanelMessagesRouteImport.update({
   path: '/messages',
   getParentRoute: () => AdminPanelRouteRoute,
 } as any)
+const AdminPanelHobbiesRoute = AdminPanelHobbiesRouteImport.update({
+  id: '/hobbies',
+  path: '/hobbies',
+  getParentRoute: () => AdminPanelRouteRoute,
+} as any)
 const AdminPanelGalleryRoute = AdminPanelGalleryRouteImport.update({
   id: '/gallery',
   path: '/gallery',
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/admin/education': typeof AdminPanelEducationRoute
   '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/gallery': typeof AdminPanelGalleryRoute
+  '/admin/hobbies': typeof AdminPanelHobbiesRoute
   '/admin/messages': typeof AdminPanelMessagesRoute
   '/admin/profile': typeof AdminPanelProfileRoute
   '/admin/projects': typeof AdminPanelProjectsRoute
@@ -221,6 +228,7 @@ export interface FileRoutesByTo {
   '/admin/education': typeof AdminPanelEducationRoute
   '/admin/experience': typeof AdminPanelExperienceRoute
   '/admin/gallery': typeof AdminPanelGalleryRoute
+  '/admin/hobbies': typeof AdminPanelHobbiesRoute
   '/admin/messages': typeof AdminPanelMessagesRoute
   '/admin/profile': typeof AdminPanelProfileRoute
   '/admin/projects': typeof AdminPanelProjectsRoute
@@ -251,6 +259,7 @@ export interface FileRoutesById {
   '/admin/_panel/education': typeof AdminPanelEducationRoute
   '/admin/_panel/experience': typeof AdminPanelExperienceRoute
   '/admin/_panel/gallery': typeof AdminPanelGalleryRoute
+  '/admin/_panel/hobbies': typeof AdminPanelHobbiesRoute
   '/admin/_panel/messages': typeof AdminPanelMessagesRoute
   '/admin/_panel/profile': typeof AdminPanelProfileRoute
   '/admin/_panel/projects': typeof AdminPanelProjectsRoute
@@ -282,6 +291,7 @@ export interface FileRouteTypes {
     | '/admin/education'
     | '/admin/experience'
     | '/admin/gallery'
+    | '/admin/hobbies'
     | '/admin/messages'
     | '/admin/profile'
     | '/admin/projects'
@@ -310,6 +320,7 @@ export interface FileRouteTypes {
     | '/admin/education'
     | '/admin/experience'
     | '/admin/gallery'
+    | '/admin/hobbies'
     | '/admin/messages'
     | '/admin/profile'
     | '/admin/projects'
@@ -339,6 +350,7 @@ export interface FileRouteTypes {
     | '/admin/_panel/education'
     | '/admin/_panel/experience'
     | '/admin/_panel/gallery'
+    | '/admin/_panel/hobbies'
     | '/admin/_panel/messages'
     | '/admin/_panel/profile'
     | '/admin/_panel/projects'
@@ -492,6 +504,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPanelMessagesRouteImport
       parentRoute: typeof AdminPanelRouteRoute
     }
+    '/admin/_panel/hobbies': {
+      id: '/admin/_panel/hobbies'
+      path: '/hobbies'
+      fullPath: '/admin/hobbies'
+      preLoaderRoute: typeof AdminPanelHobbiesRouteImport
+      parentRoute: typeof AdminPanelRouteRoute
+    }
     '/admin/_panel/gallery': {
       id: '/admin/_panel/gallery'
       path: '/gallery'
@@ -566,6 +585,7 @@ interface AdminPanelRouteRouteChildren {
   AdminPanelEducationRoute: typeof AdminPanelEducationRoute
   AdminPanelExperienceRoute: typeof AdminPanelExperienceRoute
   AdminPanelGalleryRoute: typeof AdminPanelGalleryRoute
+  AdminPanelHobbiesRoute: typeof AdminPanelHobbiesRoute
   AdminPanelMessagesRoute: typeof AdminPanelMessagesRoute
   AdminPanelProfileRoute: typeof AdminPanelProfileRoute
   AdminPanelProjectsRoute: typeof AdminPanelProjectsRoute
@@ -587,6 +607,7 @@ const AdminPanelRouteRouteChildren: AdminPanelRouteRouteChildren = {
   AdminPanelEducationRoute: AdminPanelEducationRoute,
   AdminPanelExperienceRoute: AdminPanelExperienceRoute,
   AdminPanelGalleryRoute: AdminPanelGalleryRoute,
+  AdminPanelHobbiesRoute: AdminPanelHobbiesRoute,
   AdminPanelMessagesRoute: AdminPanelMessagesRoute,
   AdminPanelProfileRoute: AdminPanelProfileRoute,
   AdminPanelProjectsRoute: AdminPanelProjectsRoute,
