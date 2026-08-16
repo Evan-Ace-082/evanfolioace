@@ -45,7 +45,7 @@ function SecurityPage() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut({ scope: "global" });
-    navigate({ to: "/admin/login", replace: true });
+    navigate({ to: "/admin/login", search: { next: undefined }, replace: true });
   }
 
   return (

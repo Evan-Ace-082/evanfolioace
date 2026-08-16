@@ -71,31 +71,37 @@ export type Database = {
       achievements: {
         Row: {
           created_at: string
+          credential_url: string | null
           date: string | null
           description: string | null
           display_order: number
           id: string
           image_url: string | null
+          organization: string | null
           title: string
           updated_at: string
         }
         Insert: {
           created_at?: string
+          credential_url?: string | null
           date?: string | null
           description?: string | null
           display_order?: number
           id?: string
           image_url?: string | null
+          organization?: string | null
           title?: string
           updated_at?: string
         }
         Update: {
           created_at?: string
+          credential_url?: string | null
           date?: string | null
           description?: string | null
           display_order?: number
           id?: string
           image_url?: string | null
+          organization?: string | null
           title?: string
           updated_at?: string
         }
@@ -359,6 +365,39 @@ export type Database = {
           id?: string
           image_url?: string
           title?: string | null
+        }
+        Relationships: []
+      }
+      hobbies: {
+        Row: {
+          created_at: string
+          description: string | null
+          display_order: number
+          icon: string | null
+          id: string
+          image_url: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          display_order?: number
+          icon?: string | null
+          id?: string
+          image_url?: string | null
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }

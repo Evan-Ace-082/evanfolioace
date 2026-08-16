@@ -8,7 +8,7 @@ export const Route = createFileRoute("/admin/_panel")({
   ssr: false,
   beforeLoad: async () => {
     const { data, error } = await supabase.auth.getUser();
-    if (error || !data.user) throw redirect({ to: "/admin/login" });
+    if (error || !data.user) throw redirect({ to: "/admin/login", search: { next: undefined } });
     return { user: data.user };
   },
   component: AdminLayout,
@@ -31,6 +31,7 @@ export const NAV_GROUPS: { label: string; items: { to: string; label: string; ic
       { to: "/admin/services", label: "Services", icon: "🛠" },
       { to: "/admin/certificates", label: "Certificates", icon: "🏅" },
       { to: "/admin/achievements", label: "Achievements", icon: "🏆" },
+      { to: "/admin/hobbies", label: "Hobbies", icon: "🎮" },
       { to: "/admin/resume", label: "Resume", icon: "📄" },
       { to: "/admin/gallery", label: "Gallery", icon: "🖼" },
       { to: "/admin/blog", label: "Blog", icon: "✍️" },
@@ -74,7 +75,7 @@ function AdminLayout() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/admin/login", replace: true });
+    navigate({ to: "/admin/login", search: { next: undefined }, replace: true });
   }
 
   const sidebar = (

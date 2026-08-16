@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import profileImg from "@/assets/profile.png";
+import heroBg from "@/assets/hero-bg.jpg";
 import { supabase } from "@/integrations/supabase/client";
 import { toArray, useCollection, useMediaUrl, useSingleton, type Row } from "@/lib/cms";
 
@@ -35,6 +36,8 @@ const NAV = [
   { href: "#skills", label: "Skills" },
   { href: "#services", label: "Services" },
   { href: "#projects", label: "Projects" },
+  { href: "#achievements", label: "Achievements" },
+  { href: "#hobbies", label: "Hobbies" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -161,7 +164,7 @@ function Navbar() {
         <ul className="hidden items-center gap-1 md:flex">
           {NAV.map((n) => (
             <li key={n.href}>
-              <a href={n.href} className="rounded-lg px-3 py-2 text-sm text-white/70 transition hover:bg-white/5 hover:text-white">
+              <a href={n.href} className="nav-link rounded-lg px-3 py-2 text-sm transition hover:bg-white/5">
                 {n.label}
               </a>
             </li>
@@ -182,7 +185,7 @@ function Navbar() {
         <div className="mx-4 mt-2 glass rounded-2xl p-4 md:hidden">
           {NAV.map((n) => (
             <a key={n.href} href={n.href} onClick={() => setOpen(false)}
-               className="block rounded-lg px-3 py-2 text-sm text-white/80 hover:bg-white/5">
+               className="nav-link block rounded-lg px-3 py-2 text-sm hover:bg-white/5">
               {n.label}
             </a>
           ))}
@@ -206,7 +209,9 @@ function Hero({ profile, about }: { profile: Row; about: Row }) {
   const linkedin = String(profile.linkedin ?? "https://linkedin.com/in/nabilhasan-evan-047736368");
 
   return (
-    <section id="home" className="relative min-h-screen overflow-hidden pt-32">
+    <section id="home" className="hero-bg relative min-h-screen overflow-hidden pt-32"
+             style={{ backgroundImage: `url(${heroBg})` }}>
+      <div className="absolute inset-0 bg-[#0B0F19]/80" />
       <div className="absolute inset-0 bg-grid opacity-40" />
       <FloatingShapes />
       <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-12 px-6 pb-24 lg:grid-cols-2 lg:items-center">
@@ -301,7 +306,7 @@ function Hero({ profile, about }: { profile: Row; about: Row }) {
 function SectionTitle({ eyebrow, title, sub }: { eyebrow: string; title: string; sub?: string }) {
   return (
     <Reveal className="mx-auto mb-14 max-w-2xl text-center">
-      <div className="mb-3 inline-flex rounded-full glass px-4 py-1 text-xs uppercase tracking-widest text-primary">{eyebrow}</div>
+      <div className="section-label mb-3 inline-flex rounded-full glass px-4 py-1 text-xs tracking-widest text-primary">{eyebrow}</div>
       <h2 className="font-display text-3xl font-bold sm:text-5xl">
         <span className="text-gradient">{title}</span>
       </h2>
@@ -530,7 +535,7 @@ function ProjectCard({ p, i }: { p: Row; i: number }) {
   return (
     <Reveal delay={i * 100}>
       <TiltCard>
-        <div className="group relative h-full overflow-hidden rounded-3xl glass">
+        <div className="project-card group relative h-full overflow-hidden rounded-3xl glass">
           <div className={`relative h-44 overflow-hidden bg-gradient-to-br ${GRADIENTS[i % GRADIENTS.length]}`}>
             <div className="absolute inset-0 bg-grid opacity-40" />
             {thumb ? (
@@ -664,19 +669,70 @@ function Certificates() {
 function Achievements() {
   const { data } = useCollection("achievements");
   const items = data ?? [];
-  if (!items.length) return null;
   return (
     <section id="achievements" className="relative py-24">
-      <SectionTitle eyebrow="Milestones" title="Achievements" />
+      <SectionTitle eyebrow="Milestones" title="Achievements & Milestones" sub="Awards, recognitions and certifications from my journey." />
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((a, i) => (
-          <Reveal key={String(a.id)} delay={i * 80}>
-            <div className="h-full rounded-3xl glass p-6">
-              <div className="text-3xl">🏆</div>
-              <h3 className="mt-4 font-display text-lg font-bold">{String(a.title ?? "")}</h3>
-              <p className="mt-2 text-sm text-white/60">{String(a.description ?? "")}</p>
-              <p className="mt-3 text-xs text-white/40">{String(a.date ?? "")}</p>
+        {items.map((a, i) => <AchievementCard key={String(a.id)} a={a} i={i} />)}
+        {items.length === 0 && (
+          <Reveal className="sm:col-span-2 lg:col-span-3">
+            <div className="rounded-3xl glass border border-white/10 p-10 text-center">
+              <div className="text-4xl">🏆</div>
+              <h3 className="mt-4 font-display text-xl font-bold">Achievements & Milestones</h3>
+              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/60">
+                More achievements and certifications will be added here.
+              </p>
             </div>
+          </Reveal>
+        )}
+      </div>
+    </section>
+  );
+}
+
+function AchievementCard({ a, i }: { a: Row; i: number }) {
+  const img = useMediaUrl(a.image_url);
+  return (
+    <Reveal delay={i * 80}>
+      <div className="h-full overflow-hidden rounded-3xl glass border border-white/10 transition duration-300 hover:-translate-y-1 hover:border-primary/40">
+        {img ? (
+          <img src={img} alt={String(a.title ?? "Achievement")} loading="lazy" className="h-40 w-full object-cover" />
+        ) : null}
+        <div className="p-6">
+          <div className="text-3xl">🏆</div>
+          <h3 className="mt-4 font-display text-lg font-bold">{String(a.title ?? "")}</h3>
+          {a.organization ? <p className="mt-1 text-sm text-primary">{String(a.organization)}</p> : null}
+          {a.description ? <p className="mt-2 text-sm leading-relaxed text-white/60">{String(a.description)}</p> : null}
+          <div className="mt-4 flex items-center justify-between">
+            <p className="text-xs text-white/40">{String(a.date ?? "")}</p>
+            {a.credential_url ? (
+              <a href={String(a.credential_url)} target="_blank" rel="noopener"
+                 className="rounded-lg glass px-3 py-1.5 text-xs font-semibold">View credential →</a>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+function Hobbies() {
+  const { data } = useCollection("hobbies");
+  const items = data ?? [];
+  if (!items.length) return null;
+  return (
+    <section id="hobbies" className="relative py-24">
+      <SectionTitle eyebrow="Beyond Code" title="Hobbies & Interests" sub="What keeps me recharged outside the screen." />
+      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 px-6 sm:grid-cols-2">
+        {items.map((h, i) => (
+          <Reveal key={String(h.id)} delay={i * 80}>
+            <TiltCard>
+              <div className="h-full rounded-3xl glass border border-white/10 p-8 text-left transition duration-300 hover:-translate-y-1 hover:border-primary/40">
+                <div className="grid h-14 w-14 place-items-center rounded-2xl btn-glow text-2xl">{String(h.icon || "🎮")}</div>
+                <h3 className="mt-5 font-display text-xl font-bold">{String(h.title ?? "")}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-white/60">{String(h.description ?? "")}</p>
+              </div>
+            </TiltCard>
           </Reveal>
         ))}
       </div>
@@ -859,6 +915,7 @@ function Portfolio() {
         <Projects />
         <Certificates />
         <Achievements />
+        <Hobbies />
         <Gallery />
         <Testimonials />
         <Blog />
