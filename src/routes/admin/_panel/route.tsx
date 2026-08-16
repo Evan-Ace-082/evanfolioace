@@ -8,7 +8,7 @@ export const Route = createFileRoute("/admin/_panel")({
   ssr: false,
   beforeLoad: async () => {
     const { data, error } = await supabase.auth.getUser();
-    if (error || !data.user) throw redirect({ to: "/admin/login" });
+    if (error || !data.user) throw redirect({ to: "/admin/login", search: { next: undefined } });
     return { user: data.user };
   },
   component: AdminLayout,
@@ -74,7 +74,7 @@ function AdminLayout() {
     await queryClient.cancelQueries();
     queryClient.clear();
     await supabase.auth.signOut();
-    navigate({ to: "/admin/login", replace: true });
+    navigate({ to: "/admin/login", search: { next: undefined }, replace: true });
   }
 
   const sidebar = (
