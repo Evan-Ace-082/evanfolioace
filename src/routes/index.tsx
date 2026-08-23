@@ -198,7 +198,6 @@ function Navbar() {
 function Hero({ profile, about }: { profile: Row; about: Row }) {
   const words = toArray(profile.typing_texts);
   const role = useTypewriter(words.length ? words : ROLES);
-  const avatar = useMediaUrl(profile.avatar_url);
   const resume = useMediaUrl(about.resume_url) ?? "/cv.pdf";
   const name = String(profile.full_name ?? "Nabil Hasan Evan").trim();
   const parts = name.split(" ");
@@ -279,7 +278,7 @@ function Hero({ profile, about }: { profile: Row; about: Row }) {
                style={{ background: "radial-gradient(circle, #3B82F6, transparent 70%)" }} />
           {/* Profile */}
           <div className="relative z-10 h-64 w-64 overflow-hidden rounded-full border-4 border-white/10 glow-blue sm:h-80 sm:w-80">
-            <img src={avatar ?? profileImg} alt={name} className="h-full w-full object-cover" />
+            <img src={profileImg} alt={name} className="h-full w-full object-cover" />
           </div>
           {/* Floating tech icons */}
           {[
