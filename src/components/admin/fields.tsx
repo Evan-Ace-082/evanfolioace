@@ -26,7 +26,7 @@ export type Field = {
 };
 
 const inputCls =
-  "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-primary";
+  "w-full rounded-lg border border-border bg-card px-4 py-2.5 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/15";
 
 export function Media({ src, alt, className }: { src?: string | null; alt: string; className?: string }) {
   const url = useMediaUrl(src);
@@ -61,7 +61,7 @@ function FileField({ field, value, onChange }: { field: Field; value: string; on
           e.preventDefault();
           void handle(e.dataTransfer.files?.[0]);
         }}
-        className="flex items-center gap-4 rounded-xl border border-dashed border-white/15 bg-white/5 p-4"
+        className="flex items-center gap-4 rounded-lg border border-dashed border-border bg-card p-4"
       >
         {field.type === "image" && preview ? (
           <img src={preview} alt="" className="h-16 w-16 rounded-lg object-cover" />
@@ -75,10 +75,10 @@ function FileField({ field, value, onChange }: { field: Field; value: string; on
           >
             {busy ? "Uploading…" : "Choose file"}
           </button>
-          <span className="ml-3 truncate text-xs text-white/40">{value || "drag & drop supported"}</span>
+          <span className="ml-3 truncate text-xs text-muted-foreground">{value || "drag & drop supported"}</span>
         </div>
         {value ? (
-          <button type="button" onClick={() => onChange("")} className="text-xs text-white/40 hover:text-red-400">
+          <button type="button" onClick={() => onChange("")} className="text-xs text-muted-foreground hover:text-destructive">
             Remove
           </button>
         ) : null}
@@ -105,16 +105,16 @@ export function FieldInput({ field, value, onChange }: { field: Field; value: an
 
   if (type === "boolean") {
     return (
-      <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
-        <input type="checkbox" checked={!!value} onChange={(e) => onChange(e.target.checked)} className="h-4 w-4 accent-[#3B82F6]" />
-        <span className="text-sm text-white/80">{field.label}</span>
+      <label className="flex cursor-pointer items-center gap-3 rounded-lg border border-border bg-card px-4 py-3">
+        <input type="checkbox" checked={!!value} onChange={(e) => onChange(e.target.checked)} className="h-4 w-4 accent-primary" />
+        <span className="text-sm text-foreground">{field.label}</span>
       </label>
     );
   }
 
   return (
     <div className={field.full ? "sm:col-span-2" : ""}>
-      <label className="mb-1.5 block text-xs uppercase tracking-widest text-white/40">{field.label}</label>
+      <label className="mb-1.5 block text-xs uppercase tracking-widest text-muted-foreground">{field.label}</label>
       {type === "image" || type === "file" ? (
         <FileField field={field} value={value ?? ""} onChange={onChange} />
       ) : type === "textarea" || type === "richtext" ? (
@@ -128,7 +128,7 @@ export function FieldInput({ field, value, onChange }: { field: Field; value: an
       ) : type === "select" ? (
         <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={inputCls}>
           {(field.options ?? []).map((o) => (
-            <option key={o.value} value={o.value} className="bg-[#111827]">
+            <option key={o.value} value={o.value} className="bg-card">
               {o.label}
             </option>
           ))}
@@ -142,7 +142,7 @@ export function FieldInput({ field, value, onChange }: { field: Field; value: an
         />
       ) : type === "color" ? (
         <div className="flex gap-3">
-          <input type="color" value={value || "#3B82F6"} onChange={(e) => onChange(e.target.value)} className="h-11 w-14 rounded-lg bg-transparent" />
+          <input type="color" value={value || "#C47A44"} onChange={(e) => onChange(e.target.value)} className="h-11 w-14 rounded-lg bg-transparent" />
           <input value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={inputCls} />
         </div>
       ) : (
@@ -154,7 +154,7 @@ export function FieldInput({ field, value, onChange }: { field: Field; value: an
           className={inputCls}
         />
       )}
-      {field.help ? <p className="mt-1 text-xs text-white/30">{field.help}</p> : null}
+      {field.help ? <p className="mt-1 text-xs text-muted-foreground">{field.help}</p> : null}
     </div>
   );
 }
