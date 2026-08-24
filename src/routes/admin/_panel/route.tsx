@@ -86,7 +86,7 @@ function AdminLayout() {
       </Link>
       {NAV_GROUPS.map((g) => (
         <div key={g.label}>
-          <div className="mb-2 px-2 text-[10px] uppercase tracking-widest text-white/30">{g.label}</div>
+          <div className="mb-2 px-2 text-[10px] uppercase tracking-widest text-muted-foreground">{g.label}</div>
           <nav className="space-y-1">
             {g.items.map((it) => {
               const active = pathname === it.to;
@@ -95,7 +95,7 @@ function AdminLayout() {
                   key={it.to}
                   to={it.to}
                   className={`flex items-center gap-3 rounded-xl px-3 py-2 text-sm transition ${
-                    active ? "btn-glow font-semibold" : "text-white/60 hover:bg-white/5 hover:text-white"
+                    active ? "border border-primary/40 bg-primary/10 font-semibold text-accent" : "border border-transparent text-muted-foreground hover:border-border hover:bg-card hover:text-foreground"
                   }`}
                 >
                   <span className="w-5 text-center text-xs">{it.icon}</span>
@@ -119,30 +119,30 @@ function AdminLayout() {
   );
 
   return (
-    <div className="relative flex min-h-screen w-full bg-background text-white">
+    <div className="relative flex min-h-screen w-full bg-background text-foreground">
       <div className="pointer-events-none fixed inset-0 bg-grid opacity-[0.07]" />
 
-      <aside className="sticky top-0 z-30 hidden h-screen w-64 shrink-0 border-r border-white/5 bg-white/[0.02] backdrop-blur lg:block">
+      <aside className="sticky top-0 z-30 hidden h-screen w-64 shrink-0 border-r border-border bg-secondary/70 backdrop-blur lg:block">
         {sidebar}
       </aside>
 
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-black/60" onClick={() => setOpen(false)} />
-          <aside className="absolute left-0 top-0 h-full w-72 border-r border-white/10 bg-[#0B0F19]">{sidebar}</aside>
+          <div className="absolute inset-0 bg-background/80" onClick={() => setOpen(false)} />
+          <aside className="absolute left-0 top-0 h-full w-72 border-r border-border bg-background">{sidebar}</aside>
         </div>
       )}
 
       <div className="relative z-10 flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-white/5 bg-[#0B0F19]/80 px-4 py-3 backdrop-blur sm:px-6">
+        <header className="sticky top-0 z-20 flex items-center gap-3 border-b border-border bg-background/90 px-4 py-3 backdrop-blur sm:px-6">
           <button onClick={() => setOpen(true)} aria-label="Open menu" className="rounded-lg glass p-2 lg:hidden">
             <div className="flex flex-col gap-1">
-              <span className="block h-0.5 w-5 bg-white" />
-              <span className="block h-0.5 w-5 bg-white" />
-              <span className="block h-0.5 w-5 bg-white" />
+              <span className="block h-0.5 w-5 bg-foreground" />
+              <span className="block h-0.5 w-5 bg-foreground" />
+              <span className="block h-0.5 w-5 bg-foreground" />
             </div>
           </button>
-          <div className="truncate font-display text-sm font-semibold text-white/70">
+          <div className="truncate font-display text-sm font-semibold text-foreground/80">
             {NAV_GROUPS.flatMap((g) => g.items).find((i) => i.to === pathname)?.label ?? "Dashboard"}
           </div>
           <div className="ml-auto flex items-center gap-2">
