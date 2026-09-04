@@ -70,38 +70,50 @@ export type Database = {
       }
       achievements: {
         Row: {
+          category: string
           created_at: string
           credential_url: string | null
           date: string | null
           description: string | null
           display_order: number
+          event: string | null
           id: string
           image_url: string | null
+          is_enabled: boolean
           organization: string | null
+          role: string | null
           title: string
           updated_at: string
         }
         Insert: {
+          category?: string
           created_at?: string
           credential_url?: string | null
           date?: string | null
           description?: string | null
           display_order?: number
+          event?: string | null
           id?: string
           image_url?: string | null
+          is_enabled?: boolean
           organization?: string | null
+          role?: string | null
           title?: string
           updated_at?: string
         }
         Update: {
+          category?: string
           created_at?: string
           credential_url?: string | null
           date?: string | null
           description?: string | null
           display_order?: number
+          event?: string | null
           id?: string
           image_url?: string | null
+          is_enabled?: boolean
           organization?: string | null
+          role?: string | null
           title?: string
           updated_at?: string
         }
@@ -376,6 +388,7 @@ export type Database = {
           icon: string | null
           id: string
           image_url: string | null
+          is_enabled: boolean
           title: string
           updated_at: string
         }
@@ -386,6 +399,7 @@ export type Database = {
           icon?: string | null
           id?: string
           image_url?: string | null
+          is_enabled?: boolean
           title: string
           updated_at?: string
         }
@@ -396,6 +410,7 @@ export type Database = {
           icon?: string | null
           id?: string
           image_url?: string | null
+          is_enabled?: boolean
           title?: string
           updated_at?: string
         }
