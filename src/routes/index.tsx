@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
+import { Camera, Compass, Gamepad2, Medal, Palette, Trophy, Users } from "lucide-react";
 import profileImg from "@/assets/profile.png";
 import heroBg from "@/assets/hero-bg.jpg";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,6 +16,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Portfolio of Nabil Hasan Evan — ICE student at BUP building modern web apps, UI/UX, database & network projects." },
       { property: "og:title", content: "Nabil Hasan Evan — Portfolio" },
       { property: "og:description", content: "ICE student, web developer & UI/UX designer crafting immersive digital experiences." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Portfolio,
@@ -201,7 +204,7 @@ function Hero({ profile, about }: { profile: Row; about: Row }) {
   const resume = useMediaUrl(about.resume_url) ?? "/cv.pdf";
   const name = String(profile.full_name ?? "Nabil Hasan Evan").trim();
   const parts = name.split(" ");
-  const last = parts.length > 1 ? parts.pop()! : "";
+  const last = parts.length > 1 ? (parts.pop() ?? "") : "";
   const first = parts.join(" ");
   const email = String(profile.email ?? "nabilhasanevan2005@gmail.com");
   const phone = String(profile.phone ?? "+8801641976902");
@@ -667,22 +670,46 @@ function Certificates() {
 
 function Achievements() {
   const { data } = useCollection("achievements");
-  const items = data ?? [];
+  const [filter, setFilter] = useState("All");
+  const items = (data ?? []).filter((item) => item.is_enabled !== false);
+  const filters = ["All", "Leadership", "Organizational", "Technical Events", "Competitions", "Extracurricular"];
+  const filtered = items.filter((item) => {
+    if (filter === "All") return true;
+    const category = String(item.category ?? "").toLowerCase();
+    if (filter === "Leadership") return category.includes("leadership");
+    if (filter === "Organizational") return category.includes("organizational") || category.includes("coordination");
+    if (filter === "Technical Events") return category.includes("technical");
+    if (filter === "Competitions") return category.includes("competition") || category.includes("programming");
+    return category.includes("extracurricular");
+  });
   return (
-    <section id="achievements" className="relative py-24">
-      <SectionTitle eyebrow="Milestones" title="Achievements & Milestones" sub="Awards, recognitions and certifications from my journey." />
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((a, i) => <AchievementCard key={String(a.id)} a={a} i={i} />)}
+    <section id="achievements" className="relative bg-secondary/35 py-24">
+      <SectionTitle eyebrow="Involvement" title="Achievements & Leadership" sub="Leadership roles, organizational experience, technical events and extracurricular activities." />
+      {items.length > 0 && (
+        <div className="mx-auto mb-12 flex max-w-6xl flex-wrap justify-center gap-2 px-6" aria-label="Filter activities">
+          {filters.map((option) => (
+            <button
+              key={option}
+              type="button"
+              onClick={() => setFilter(option)}
+              className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${
+                filter === option
+                  ? "border-primary bg-primary/15 text-accent"
+                  : "border-border bg-card text-muted-foreground hover:border-primary/60 hover:text-foreground"
+              }`}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+      )}
+      <div className="relative mx-auto max-w-5xl px-6">
+        {filtered.length > 0 && <div className="absolute bottom-3 left-[2.15rem] top-3 w-px bg-border md:left-1/2" />}
+        <div className="space-y-7">
+          {filtered.map((a, i) => <AchievementCard key={String(a.id)} a={a} i={i} />)}
+        </div>
         {items.length === 0 && (
-          <Reveal className="sm:col-span-2 lg:col-span-3">
-            <div className="rounded-3xl glass border border-white/10 p-10 text-center">
-              <div className="text-4xl">🏆</div>
-              <h3 className="mt-4 font-display text-xl font-bold">Achievements & Milestones</h3>
-              <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-white/60">
-                More achievements and certifications will be added here.
-              </p>
-            </div>
-          </Reveal>
+          <p className="text-center text-sm text-muted-foreground">Leadership and activity entries will appear here.</p>
         )}
       </div>
     </section>
@@ -691,46 +718,67 @@ function Achievements() {
 
 function AchievementCard({ a, i }: { a: Row; i: number }) {
   const img = useMediaUrl(a.image_url);
+  const isLeadership = String(a.category ?? "").toLowerCase().includes("leadership");
+  const ActivityIcon = isLeadership ? Users : String(a.category ?? "").toLowerCase().includes("technical") ? Trophy : Medal;
+  const context = String(a.organization || a.event || "");
   return (
     <Reveal delay={i * 80}>
-      <div className="h-full overflow-hidden rounded-3xl glass border border-white/10 transition duration-300 hover:-translate-y-1 hover:border-primary/40">
-        {img ? (
-          <img src={img} alt={String(a.title ?? "Achievement")} loading="lazy" className="h-40 w-full object-cover" />
-        ) : null}
-        <div className="p-6">
-          <div className="text-3xl">🏆</div>
-          <h3 className="mt-4 font-display text-lg font-bold">{String(a.title ?? "")}</h3>
-          {a.organization ? <p className="mt-1 text-sm text-primary">{String(a.organization)}</p> : null}
-          {a.description ? <p className="mt-2 text-sm leading-relaxed text-white/60">{String(a.description)}</p> : null}
-          <div className="mt-4 flex items-center justify-between">
-            <p className="text-xs text-white/40">{String(a.date ?? "")}</p>
+      <div className={`relative pl-14 md:w-[calc(50%+1.75rem)] ${i % 2 ? "md:ml-auto md:pl-14" : "md:pr-14 md:pl-0"}`}>
+        <span className={`absolute left-[1.38rem] top-7 z-10 h-3 w-3 rounded-full border-2 border-background bg-primary shadow-[0_0_0_5px_var(--background)] md:left-auto ${i % 2 ? "md:left-[-0.38rem]" : "md:right-[-0.38rem]"}`} />
+        <article className="group overflow-hidden rounded-lg border border-border bg-card p-6 transition duration-300 hover:-translate-y-1 hover:border-primary/70 hover:shadow-[0_18px_50px_-30px_var(--primary)]">
+          <div className="flex items-start gap-4">
+            <div className="grid h-11 w-11 shrink-0 place-items-center rounded-lg border border-primary/25 bg-primary/10 text-accent">
+              <ActivityIcon size={21} strokeWidth={1.7} />
+            </div>
+            <div className="min-w-0">
+              <span className="inline-flex rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-widest text-accent">
+                {String(a.category || "Activity")}
+              </span>
+              <h3 className="mt-3 font-display text-lg font-bold text-foreground">{String(a.title ?? "")}</h3>
+              {context ? <p className="mt-1 text-sm font-medium text-accent">{context}</p> : null}
+              {a.role && String(a.role) !== String(a.title) ? <p className="mt-1 text-xs text-muted-foreground">{String(a.role)}</p> : null}
+            </div>
+          </div>
+          {a.description ? <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{String(a.description)}</p> : null}
+          {img ? <img src={img} alt={String(a.title ?? "Activity")} loading="lazy" className="mt-5 h-36 w-full rounded-lg object-cover" /> : null}
+          <div className="mt-4 flex min-h-6 items-center justify-between gap-4">
+            <p className="text-xs text-muted-foreground">{String(a.date ?? "")}</p>
             {a.credential_url ? (
               <a href={String(a.credential_url)} target="_blank" rel="noopener"
-                 className="rounded-lg glass px-3 py-1.5 text-xs font-semibold">View credential →</a>
+                 className="text-xs font-semibold text-accent hover:text-foreground">View attachment →</a>
             ) : null}
           </div>
-        </div>
+        </article>
       </div>
     </Reveal>
   );
 }
 
+function HobbyIcon({ name }: { name: string }) {
+  const normalized = name.toLowerCase();
+  const Icon = normalized.includes("game") ? Gamepad2 : normalized.includes("travel") || normalized.includes("compass") ? Compass : normalized.includes("design") || normalized.includes("palette") ? Palette : normalized.includes("photo") || normalized.includes("camera") ? Camera : null;
+  if (Icon) return <Icon size={26} strokeWidth={1.6} />;
+  return <span aria-hidden="true" className="text-xl">{name || "•"}</span>;
+}
+
 function Hobbies() {
   const { data } = useCollection("hobbies");
-  const items = data ?? [];
+  const items = (data ?? []).filter((item) => item.is_enabled !== false);
   if (!items.length) return null;
   return (
     <section id="hobbies" className="relative py-24">
-      <SectionTitle eyebrow="Beyond Code" title="Hobbies & Interests" sub="What keeps me recharged outside the screen." />
-      <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 px-6 sm:grid-cols-2">
+      <SectionTitle eyebrow="Beyond Academics" title="Hobbies & Interests" sub="Creative interests and experiences that shape how I think, observe, and solve problems." />
+      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 px-6 sm:grid-cols-2 lg:grid-cols-4">
         {items.map((h, i) => (
           <Reveal key={String(h.id)} delay={i * 80}>
             <TiltCard>
-              <div className="h-full rounded-3xl glass border border-white/10 p-8 text-left transition duration-300 hover:-translate-y-1 hover:border-primary/40">
-                <div className="grid h-14 w-14 place-items-center rounded-2xl btn-glow text-2xl">{String(h.icon || "🎮")}</div>
-                <h3 className="mt-5 font-display text-xl font-bold">{String(h.title ?? "")}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-white/60">{String(h.description ?? "")}</p>
-              </div>
+              <article className="h-full rounded-lg border border-border bg-card p-7 text-left transition duration-300 hover:-translate-y-1 hover:border-primary/70 hover:shadow-[0_18px_45px_-32px_var(--primary)]">
+                <div className="grid h-12 w-12 place-items-center rounded-lg border border-primary/25 bg-primary/10 text-accent">
+                  <HobbyIcon name={String(h.icon || h.title || "")} />
+                </div>
+                <h3 className="mt-6 font-display text-lg font-bold text-foreground">{String(h.title ?? "")}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{String(h.description ?? "")}</p>
+              </article>
             </TiltCard>
           </Reveal>
         ))}

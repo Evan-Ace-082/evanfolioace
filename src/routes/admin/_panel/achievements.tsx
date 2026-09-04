@@ -6,8 +6,8 @@ export const Route = createFileRoute("/admin/_panel/achievements")({
   head: () => ({ meta: [{ title: "Achievements — Portfolio Admin" }, { name: "robots", content: "noindex, nofollow" }] }),
   component: () => (
     <>
-      <PageHeader title="Achievements" sub="Awards, milestones and recognitions." />
-      <CollectionManager table="achievements" title="Achievements" fields={achievementFields} labelKey="title" imageKey="image_url" />
+      <PageHeader title="Achievements & Leadership" sub="Leadership roles, organizational experience, technical events and activities." />
+      <CollectionManager table="achievements" title="Activities" fields={achievementFields} labelKey="title" imageKey="image_url" />
     </>
   ),
 });

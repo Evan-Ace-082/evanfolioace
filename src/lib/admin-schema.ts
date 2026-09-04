@@ -133,12 +133,28 @@ export const certificateFields: Field[] = [
 
 export const achievementFields: Field[] = [
   { key: "title", label: "Title" },
+  {
+    key: "category",
+    label: "Category",
+    type: "select",
+    options: [
+      { value: "Leadership", label: "Leadership" },
+      { value: "Leadership / Coordination", label: "Leadership / Coordination" },
+      { value: "Organizational", label: "Organizational" },
+      { value: "Technical Event", label: "Technical Event" },
+      { value: "Programming / Competition", label: "Programming / Competition" },
+      { value: "Extracurricular", label: "Extracurricular" },
+    ],
+  },
   { key: "organization", label: "Organization" },
+  { key: "role", label: "Role" },
+  { key: "event", label: "Event" },
   { key: "date", label: "Date" },
   { key: "credential_url", label: "Credential Link" },
   { key: "display_order", label: "Display Order", type: "number" },
+  { key: "is_enabled", label: "Visible on portfolio", type: "boolean" },
   { key: "description", label: "Description", type: "textarea", full: true },
-  { key: "image_url", label: "Image", type: "image", folder: "achievements", full: true },
+  { key: "image_url", label: "Image / Certificate", type: "image", folder: "achievements", full: true },
 ];
 
 export const galleryFields: Field[] = [
@@ -245,8 +261,9 @@ export const messageFields: Field[] = [
 
 export const hobbyFields: Field[] = [
   { key: "title", label: "Hobby" },
-  { key: "icon", label: "Icon (emoji)" },
+  { key: "icon", label: "Icon", help: "Use gamepad-2, compass, palette, camera, or an emoji." },
   { key: "display_order", label: "Display Order", type: "number" },
+  { key: "is_enabled", label: "Visible on portfolio", type: "boolean" },
   { key: "description", label: "Description", type: "textarea", full: true },
   { key: "image_url", label: "Image", type: "image", folder: "hobbies", full: true },
 ];
