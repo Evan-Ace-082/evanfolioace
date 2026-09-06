@@ -455,20 +455,12 @@ function Skills() {
                 </div>
                 <h3 className="font-display text-lg font-bold">{g.title}</h3>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-2.5">
                 {g.items.length === 0 && <p className="text-sm text-white/40">Coming soon.</p>}
                 {g.items.map((s) => (
-                  <div key={String(s.id)}>
-                    <div className="mb-1.5 flex justify-between text-sm">
-                      <span className="text-white/80">{String(s.name)}</span>
-                      <span className="text-white/40">{Number(s.percentage ?? 0)}%</span>
-                    </div>
-                    <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
-                      <div
-                        className="h-full skill-bar transition-all duration-1000 group-hover:brightness-125"
-                        style={{ width: `${Number(s.percentage ?? 0)}%`, ...(s.color ? { background: String(s.color) } : {}) }}
-                      />
-                    </div>
+                  <div key={String(s.id)} className="flex items-center gap-2.5 text-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary/70" />
+                    <span className="text-white/80">{String(s.name)}</span>
                   </div>
                 ))}
               </div>
@@ -561,8 +553,10 @@ function ProjectCard({ p, i }: { p: Row; i: number }) {
             <div className="mt-6 flex gap-3">
               <a href={String(p.github_url || "#")} target="_blank" rel="noopener"
                  className="flex-1 rounded-lg glass px-4 py-2 text-center text-xs font-semibold hover:bg-white/10">GitHub</a>
-              <a href={String(p.live_url || "#")} target="_blank" rel="noopener"
-                 className="flex-1 rounded-lg btn-glow btn-glow-hover px-4 py-2 text-center text-xs font-semibold">Live Demo</a>
+              {String(p.title ?? "").toLowerCase() !== "luxora-motors" && (
+                <a href={String(p.live_url || "#")} target="_blank" rel="noopener"
+                   className="flex-1 rounded-lg btn-glow btn-glow-hover px-4 py-2 text-center text-xs font-semibold">Live Demo</a>
+              )}
             </div>
           </div>
         </div>
