@@ -553,8 +553,10 @@ function ProjectCard({ p, i }: { p: Row; i: number }) {
             <div className="mt-6 flex gap-3">
               <a href={String(p.github_url || "#")} target="_blank" rel="noopener"
                  className="flex-1 rounded-lg glass px-4 py-2 text-center text-xs font-semibold hover:bg-white/10">GitHub</a>
-              <a href={String(p.live_url || "#")} target="_blank" rel="noopener"
-                 className="flex-1 rounded-lg btn-glow btn-glow-hover px-4 py-2 text-center text-xs font-semibold">Live Demo</a>
+              {String(p.title ?? "").toLowerCase() !== "luxora-motors" && (
+                <a href={String(p.live_url || "#")} target="_blank" rel="noopener"
+                   className="flex-1 rounded-lg btn-glow btn-glow-hover px-4 py-2 text-center text-xs font-semibold">Live Demo</a>
+              )}
             </div>
           </div>
         </div>
