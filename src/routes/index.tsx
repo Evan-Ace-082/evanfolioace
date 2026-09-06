@@ -550,14 +550,29 @@ function ProjectCard({ p, i }: { p: Row; i: number }) {
                 <span key={t} className="rounded-full bg-white/5 px-3 py-1 text-xs text-primary ring-1 ring-primary/20">{t}</span>
               ))}
             </div>
-            <div className="mt-6 flex gap-3">
-              <a href={String(p.github_url || "#")} target="_blank" rel="noopener"
-                 className="flex-1 rounded-lg glass px-4 py-2 text-center text-xs font-semibold hover:bg-white/10">GitHub</a>
+            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={p.github_url ? String(p.github_url) : undefined}
+                target="_blank"
+                rel="noopener"
+                aria-disabled={!p.github_url}
+                className={`flex-1 rounded-lg glass px-4 py-2 text-center text-xs font-semibold hover:bg-white/10 ${p.github_url ? "" : "pointer-events-none opacity-50"}`}
+              >
+                GitHub
+              </a>
               {String(p.title ?? "").toLowerCase() !== "luxora-motors" && (
-                <a href={String(p.live_url || "#")} target="_blank" rel="noopener"
-                   className="flex-1 rounded-lg btn-glow btn-glow-hover px-4 py-2 text-center text-xs font-semibold">Live Demo</a>
+                <a
+                  href={p.live_url ? String(p.live_url) : undefined}
+                  target="_blank"
+                  rel="noopener"
+                  aria-disabled={!p.live_url}
+                  className={`flex-1 rounded-lg btn-glow btn-glow-hover px-4 py-2 text-center text-xs font-semibold ${p.live_url ? "" : "pointer-events-none opacity-50"}`}
+                >
+                  Live Demo
+                </a>
               )}
             </div>
+
           </div>
         </div>
       </TiltCard>
