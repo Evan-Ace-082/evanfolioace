@@ -455,20 +455,12 @@ function Skills() {
                 </div>
                 <h3 className="font-display text-lg font-bold">{g.title}</h3>
               </div>
-              <div className="space-y-4">
+              <div className="space-y-2.5">
                 {g.items.length === 0 && <p className="text-sm text-white/40">Coming soon.</p>}
                 {g.items.map((s) => (
-                  <div key={String(s.id)}>
-                    <div className="mb-1.5 flex justify-between text-sm">
-                      <span className="text-white/80">{String(s.name)}</span>
-                      <span className="text-white/40">{Number(s.percentage ?? 0)}%</span>
-                    </div>
-                    <div className="h-1.5 overflow-hidden rounded-full bg-white/5">
-                      <div
-                        className="h-full skill-bar transition-all duration-1000 group-hover:brightness-125"
-                        style={{ width: `${Number(s.percentage ?? 0)}%`, ...(s.color ? { background: String(s.color) } : {}) }}
-                      />
-                    </div>
+                  <div key={String(s.id)} className="flex items-center gap-2.5 text-sm">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary/70" />
+                    <span className="text-white/80">{String(s.name)}</span>
                   </div>
                 ))}
               </div>
